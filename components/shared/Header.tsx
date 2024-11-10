@@ -45,7 +45,7 @@ export const Header = ({ className }: Props) => {
               </div>
               <ArrowRight
                 size={20}
-                className="absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
+                className="absolute right-5 transition duration-300 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
               />
             </Button>
           </div>
