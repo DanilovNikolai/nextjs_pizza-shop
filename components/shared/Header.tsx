@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-export const Header = ({ className }: Props) => {
+export const Header: React.FC<Props> = ({ className }) => {
   return (
     <header className={cn('border vorder-b', className)}>
       <Container className="flex items-center justify-between py-8">
