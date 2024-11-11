@@ -6,3 +6,4 @@ export { SortPopup } from './SortPopup';
 export { TopBar } from './TopBar';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
+export { RangeSlider } from './RangeSlider';

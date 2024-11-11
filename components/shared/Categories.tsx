@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
 
-interface Props {
+interface CategoriesProps {
   className?: string;
 }
 
@@ -18,7 +18,7 @@ const categories = [
 
 const activeIndex = 0;
 
-export const Categories: React.FC<Props> = () => {
+export const Categories: React.FC<CategoriesProps> = () => {
   return (
     <div className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl')}>
       {categories.map((category, index) => (

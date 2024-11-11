@@ -2,11 +2,11 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowUpDown } from 'lucide-react';
 
-interface Props {
+interface SortPopupProps {
   className?: string;
 }
 
-export const SortPopup: React.FC<Props> = ({ className }) => {
+export const SortPopup: React.FC<SortPopupProps> = ({ className }) => {
   return (
     <div
       className={cn(

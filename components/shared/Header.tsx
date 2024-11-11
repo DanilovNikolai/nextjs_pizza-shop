@@ -9,11 +9,11 @@ import { Button } from '../ui';
 // lucide
 import { ArrowRight, ShoppingCart, User } from 'lucide-react';
 
-interface Props {
+interface HeaderProps {
   className?: string;
 }
 
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <header className={cn('border vorder-b', className)}>
       <Container className="flex items-center justify-between py-8">

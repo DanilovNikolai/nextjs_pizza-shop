@@ -2,11 +2,11 @@ import React from 'react';
 import { Categories, Container, SortPopup } from './';
 import { cn } from '@/lib/utils';
 
-interface Props {
+interface TopBarProps {
   className?: string;
 }
 
-export const TopBar: React.FC<Props> = ({ className }) => {
+export const TopBar: React.FC<TopBarProps> = ({ className }) => {
   return (
     <div
       className={cn(
