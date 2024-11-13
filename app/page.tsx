@@ -4,8 +4,10 @@ import {
   Title,
   TopBar,
   Filters,
-  ProductCard,
+  ProductsGroupList,
 } from '@/components/shared';
+
+import fakeItems from '../fakeItems.json';
 
 export default function Home() {
   return (
@@ -17,7 +19,7 @@ export default function Home() {
       <TopBar />
 
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[60px]">
+        <div className="flex gap-[80px]">
           {/* Фильтрация */}
           <div className="w-[250px]">
             <Filters />
@@ -26,29 +28,10 @@ export default function Home() {
           {/* Список товаров */}
           <div className="flex-1">
             <div className="flex flex-col gap-16">
-              <ProductCard
-                id={0}
-                name={'Цыпленок барбекю'}
-                price={500}
-                imageUrl={
-                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
-                }
-              />
-              <ProductCard
-                id={1}
-                name={'Цыпленок барбекю'}
-                price={500}
-                imageUrl={
-                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
-                }
-              />
-              <ProductCard
-                id={2}
-                name={'Цыпленок барбекю'}
-                price={500}
-                imageUrl={
-                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
-                }
+              <ProductsGroupList
+                items={fakeItems}
+                title="Пиццы"
+                categoryId={1}
               />
             </div>
           </div>
