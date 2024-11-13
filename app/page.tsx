@@ -1,5 +1,11 @@
 // components
-import { Container, Title, TopBar, Filters } from '@/components/shared';
+import {
+  Container,
+  Title,
+  TopBar,
+  Filters,
+  ProductCard,
+} from '@/components/shared';
 
 export default function Home() {
   return (
@@ -19,7 +25,32 @@ export default function Home() {
 
           {/* Список товаров */}
           <div className="flex-1">
-            <div className="flex flex-col gap-16">Список товаров</div>
+            <div className="flex flex-col gap-16">
+              <ProductCard
+                id={0}
+                name={'Цыпленок барбекю'}
+                price={500}
+                imageUrl={
+                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
+                }
+              />
+              <ProductCard
+                id={1}
+                name={'Цыпленок барбекю'}
+                price={500}
+                imageUrl={
+                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
+                }
+              />
+              <ProductCard
+                id={2}
+                name={'Цыпленок барбекю'}
+                price={500}
+                imageUrl={
+                  'https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.avif'
+                }
+              />
+            </div>
           </div>
         </div>
       </Container>
