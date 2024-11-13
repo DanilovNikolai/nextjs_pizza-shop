@@ -7,56 +7,42 @@
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
+    "id": 2,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
+    "id": 3,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
+    "id": 4,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
+    "id": 5,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
+    "id": 6,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,
     "items": [{ "price": 550 }]
   },
   {
-    "id": 1,
-    "name": "Мясная",
-    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
-    "price": 550,
-    "items": [{ "price": 550 }]
-  },
-  {
-    "id": 1,
-    "name": "Мясная",
-    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
-    "price": 550,
-    "items": [{ "price": 550 }]
-  },
-  {
-    "id": 1,
+    "id": 7,
     "name": "Мясная",
     "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6108E3A1C9952CD3A7F39A4D02.avif",
     "price": 550,

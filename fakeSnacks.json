@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 2,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 3,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 4,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 5,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 6,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  },
+  {
+    "id": 7,
+    "name": "Мясная",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.avif",
+    "price": 550,
+    "items": [{ "price": 550 }]
+  }
+]

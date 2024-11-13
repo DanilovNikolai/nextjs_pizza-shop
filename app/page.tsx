@@ -7,7 +7,8 @@ import {
   ProductsGroupList,
 } from '@/components/shared';
 
-import fakeItems from '../fakeItems.json';
+import fakePizzas from '../fakePizzas.json';
+import fakeSnacks from '../fakeSnacks.json';
 
 export default function Home() {
   return (
@@ -29,8 +30,13 @@ export default function Home() {
           <div className="flex-1">
             <div className="flex flex-col gap-16">
               <ProductsGroupList
-                items={fakeItems}
+                items={fakePizzas}
                 title="Пиццы"
+                categoryId={0}
+              />
+              <ProductsGroupList
+                items={fakeSnacks}
+                title="Закуски"
                 categoryId={1}
               />
             </div>
