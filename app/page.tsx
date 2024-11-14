@@ -32,12 +32,12 @@ export default function Home() {
               <ProductsGroupList
                 items={fakePizzas}
                 title="Пиццы"
-                categoryId={0}
+                categoryId={1}
               />
               <ProductsGroupList
                 items={fakeSnacks}
                 title="Закуски"
-                categoryId={1}
+                categoryId={3}
               />
             </div>
           </div>
