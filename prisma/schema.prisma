@@ -11,15 +11,20 @@ datasource db {
 
 // Создание таблиц
 model User {
-  id        Int      @id @default(autoincrement())
-  fullName  String
-  email     String   @unique
-  password  String
-  cartId    Int?     @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  fullName   String
+  email      String   @unique
+  password   String
+  role       UserRole @default(USER)
+  provider   String?
+  providerId String?
+  cartId     Int?     @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  cart Cart?
+  cart             Cart?
+  orders           Order[]
+  verificationCode VerificationCode?
 }
 
 model Category {
@@ -92,4 +97,45 @@ model CartItem {
   productItem ProductItem  @relation(fields: [productItemId], references: [id])
   cart        Cart         @relation(fields: [cartId], references: [id])
   ingredients Ingredient[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      Int?
+  token       String
+  totalAmount Int
+  status      OrderStatus
+  paymentId   String?
+  items       Json
+  fullName    String
+  email       String
+  address     String
+  phone       String
+  comment     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model VerificationCode {
+  id        Int      @id @default(autoincrement())
+  code      String
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, code])
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
