@@ -15,22 +15,81 @@ model User {
   fullName  String
   email     String   @unique
   password  String
+  cartId    Int?     @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  cart Cart?
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   products Product[]
 }
 
 model Product {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
-  inageUrl   String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  category   Category? @relation(fields: [categoryId], references: [id]) // связь с таблицей 'Category' с полем 'id'
-  categoryId Int? // сюда попадает значение поля 'id' из таблицы 'Category'
+  imageUrl   String
+  categoryId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  category    Category      @relation(fields: [categoryId], references: [id])
+  ingredients Ingredient[]
+  variants    ProductItem[]
+}
+
+model ProductItem {
+  id        Int      @id @default(autoincrement())
+  price     Int
+  pizzaSize Int?
+  pizzaType Int?
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product   Product    @relation(fields: [productId], references: [id])
+  cartItems CartItem[]
+}
+
+model Ingredient {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products  Product[]
+  cartItems CartItem[]
+}
+
+model Cart {
+  id          Int      @id @default(autoincrement())
+  userId      Int?     @unique
+  totalAmount Int      @default(0)
+  token       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User?      @relation(fields: [userId], references: [id])
+  items CartItem[]
+}
+
+model CartItem {
+  id            Int      @id @default(autoincrement())
+  productItemId Int
+  cartId        Int
+  quantity      Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  productItem ProductItem  @relation(fields: [productItemId], references: [id])
+  cart        Cart         @relation(fields: [cartId], references: [id])
+  ingredients Ingredient[]
 }
