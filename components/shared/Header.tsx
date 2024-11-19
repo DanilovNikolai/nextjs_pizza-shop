@@ -1,9 +1,10 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 // components
-import { Container } from './Container';
+import { Container, SearchInput } from './';
 // next
 import Image from 'next/image';
+import Link from 'next/link';
 // ui
 import { Button } from '../ui';
 // lucide
@@ -18,14 +19,21 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
     <header className={cn('border vorder-b', className)}>
       <Container className="flex items-center justify-between py-8">
         {/* Левая часть */}
-        <div className="flex items-center gap-4">
-          <Image src="/logo.png" alt="logo" width={35} height={35} />
-          <div>
-            <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
-            <p className="text-sm text-gray-400 leading-3">
-              вкусней уже некуда
-            </p>
+        <Link href="/">
+          <div className="flex items-center gap-4">
+            <Image src="/logo.png" alt="logo" width={35} height={35} />
+            <div>
+              <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
+              <p className="text-sm text-gray-400 leading-3">
+                вкусней уже некуда
+              </p>
+            </div>
           </div>
+        </Link>
+
+        {/* Поиск */}
+        <div className="mx-10 flex-1">
+          <SearchInput />
         </div>
 
         {/* Правая часть */}
