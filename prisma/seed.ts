@@ -160,14 +160,59 @@ async function up() {
         pizzaType: 2,
         pizzaSize: 40,
       }),
+
+      // Остальные продукты
+      generateProductItem({ productId: 1 }),
+      generateProductItem({ productId: 2 }),
+      generateProductItem({ productId: 3 }),
+      generateProductItem({ productId: 4 }),
+      generateProductItem({ productId: 5 }),
+      generateProductItem({ productId: 6 }),
+      generateProductItem({ productId: 7 }),
+      generateProductItem({ productId: 8 }),
+      generateProductItem({ productId: 9 }),
+      generateProductItem({ productId: 10 }),
+      generateProductItem({ productId: 11 }),
+      generateProductItem({ productId: 12 }),
+      generateProductItem({ productId: 13 }),
+      generateProductItem({ productId: 14 }),
+      generateProductItem({ productId: 15 }),
+      generateProductItem({ productId: 16 }),
+      generateProductItem({ productId: 17 }),
     ],
+  });
+
+  await prisma.cart.createMany({
+    data: [
+      {
+        userId: 1,
+        totalAmount: 0,
+        token: '11111',
+      },
+      {
+        userId: 2,
+        totalAmount: 0,
+        token: '22222',
+      },
+    ],
+  });
+
+  await prisma.cartItem.create({
+    data: {
+      cartId: 1,
+      productItemId: 1,
+      quantity: 2,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      },
+    },
   });
 }
 
-// функция очищает данные
+// функция очищает данные таблиц и обнуляет счетчик id
 async function down() {
   // sql запрос TRUNCATE TABLE "User" RESTART IDENTITY CASCADE
-  await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`; // для очищения таблицы и обнуления счета id
+  await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Category" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Cart" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "CartItem" RESTART IDENTITY CASCADE`;
@@ -185,7 +230,7 @@ async function main() {
   }
 }
 
-// После очищения и создания фейковых данных отключаем таблицу
+// После очищения и создания фейковых данных отключаем prisma
 main()
   .then(async () => {
     await prisma.$disconnect();
