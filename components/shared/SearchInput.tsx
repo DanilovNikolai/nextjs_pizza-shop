@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // cn
 import { cn } from '@/lib/utils';
 // lucide
@@ -11,18 +11,29 @@ import { Input } from '../ui';
 import { useClickAway } from 'react-use';
 // next
 import Link from 'next/link';
+// api
+import { Api } from '@/services/api-client';
+// types
+import { Product } from '@prisma/client';
 
 interface Props {
   className?: string;
 }
 
 export const SearchInput: React.FC<Props> = ({ className }) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
   const searchInputRef = useRef(null);
 
+  // ф-ция проверяет клик вне выбранного элемента
   useClickAway(searchInputRef, () => {
     setIsFocused(false);
   });
+
+  useEffect(() => {
+    Api.products.search(searchQuery).then((items) => setProducts(items)); // '/api/products/search?query={searchQuery}'
+  }, [searchQuery]);
 
   return (
     <>
@@ -43,6 +54,8 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
           type="text"
           placeholder="Найти товар..."
           onFocus={() => setIsFocused(true)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
 
         <div
@@ -51,17 +64,20 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
             isFocused && 'visible opacity-100 top-12'
           )}
         >
-          <Link
-            className="flex gap-3 items-center px-3 py-2 hover:bg-primary/10"
-            href="/product/1"
-          >
-            <img
-              className="rounded-sm h-8 w-8"
-              src="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
-              alt="Пицца1"
-            />
-            <span>Пицца 1</span>
-          </Link>
+          {products.map((product) => (
+            <Link
+              key={product.id}
+              className="flex gap-3 items-center px-3 py-2 hover:bg-primary/10"
+              href={`/products/${product.id}`}
+            >
+              <img
+                className="rounded-sm h-8 w-8"
+                src={product.imageUrl}
+                alt={product.name}
+              />
+              <span>{product.name}</span>
+            </Link>
+          ))}
         </div>
       </div>
     </>
