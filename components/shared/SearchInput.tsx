@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 // cn
 import { cn } from '@/lib/utils';
 // lucide
@@ -32,8 +32,13 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   });
 
   useDebounce(
-    () => {
-      Api.products.search(searchQuery).then((items) => setProducts(items)); // '/api/products/search?query={searchQuery}'
+    async () => {
+      try {
+        const response = await Api.products.search(searchQuery); // '/api/products/search?query={searchQuery}'
+        setProducts(response);
+      } catch (error) {
+        console.log(error);
+      }
     },
     300,
     [searchQuery]
