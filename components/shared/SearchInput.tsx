@@ -8,7 +8,7 @@ import { Search } from 'lucide-react';
 // shadcn
 import { Input } from '../ui';
 // react-use
-import { useClickAway } from 'react-use';
+import { useClickAway, useDebounce } from 'react-use';
 // next
 import Link from 'next/link';
 // api
@@ -31,9 +31,19 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
     setIsFocused(false);
   });
 
-  useEffect(() => {
-    Api.products.search(searchQuery).then((items) => setProducts(items)); // '/api/products/search?query={searchQuery}'
-  }, [searchQuery]);
+  useDebounce(
+    () => {
+      Api.products.search(searchQuery).then((items) => setProducts(items)); // '/api/products/search?query={searchQuery}'
+    },
+    300,
+    [searchQuery]
+  );
+
+  const handleClickItem = () => {
+    setIsFocused(false);
+    setSearchQuery('');
+    setProducts([]);
+  };
 
   return (
     <>
@@ -58,27 +68,30 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        <div
-          className={cn(
-            'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
-            isFocused && 'visible opacity-100 top-12'
-          )}
-        >
-          {products.map((product) => (
-            <Link
-              key={product.id}
-              className="flex gap-3 items-center px-3 py-2 hover:bg-primary/10"
-              href={`/products/${product.id}`}
-            >
-              <img
-                className="rounded-sm h-8 w-8"
-                src={product.imageUrl}
-                alt={product.name}
-              />
-              <span>{product.name}</span>
-            </Link>
-          ))}
-        </div>
+        {products.length > 0 && (
+          <div
+            className={cn(
+              'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
+              isFocused && 'visible opacity-100 top-12'
+            )}
+          >
+            {products.map((product) => (
+              <Link
+                key={product.id}
+                className="flex gap-3 items-center px-3 py-2 hover:bg-primary/10"
+                href={`/product/${product.id}`}
+                onClick={handleClickItem}
+              >
+                <img
+                  className="rounded-sm h-8 w-8"
+                  src={product.imageUrl}
+                  alt={product.name}
+                />
+                <span>{product.name}</span>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
