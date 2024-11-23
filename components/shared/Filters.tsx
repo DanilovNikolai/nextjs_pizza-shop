@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 // components
 import { Title, FilterCheckbox, RangeSlider, CheckboxFiltersGroup } from './';
 // ui
@@ -12,14 +12,31 @@ interface FiltersProps {
   className?: string;
 }
 
+interface PriceProps {
+  priceFrom: number;
+  priceTo: number;
+}
+
 export const Filters: React.FC<FiltersProps> = ({ className }) => {
   const { ingredients, loading, handleAddId, selectedIds } =
     useFilterIngredients();
+
+  const [prices, setPrices] = useState<PriceProps>({
+    priceFrom: 0,
+    priceTo: 1000,
+  });
 
   const items = ingredients.map((ingredient) => ({
     value: String(ingredient.id),
     text: ingredient.name,
   }));
+
+  const handleSetPrice = (name: keyof PriceProps, value: number) => {
+    setPrices({
+      ...prices,
+      [name]: value,
+    });
+  };
 
   return (
     <div className={className}>
@@ -40,13 +57,31 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
             placeholder="0"
             min={0}
             max={1000}
-            defaultValue={0}
+            value={String(prices.priceFrom)}
+            onChange={(e) =>
+              handleSetPrice('priceFrom', Number(e.target.value))
+            }
           />
-          <Input type="number" placeholder="1000" min={100} max={1000} />
+          <Input
+            type="number"
+            placeholder="1000"
+            min={100}
+            max={1000}
+            value={String(prices.priceTo)}
+            onChange={(e) => handleSetPrice('priceTo', Number(e.target.value))}
+          />
         </div>
 
         {/* Ползунок */}
-        <RangeSlider min={0} max={1000} step={10} value={[0, 1000]} />
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[prices.priceFrom, prices.priceTo]}
+          onValueChange={([priceFrom, priceTo]) =>
+            setPrices({ priceFrom, priceTo })
+          }
+        />
       </div>
 
       {/* Нижние чекбоксы */}
