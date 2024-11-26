@@ -1,8 +1,6 @@
 // components
 import { Container, Title, TopBar, Filters, ProductsGroupList } from '@/components/shared';
-
-import fakePizzas from '../fakePizzas.json';
-import fakeSnacks from '../fakeSnacks.json';
+// prisma
 import { prisma } from '@/prisma/prisma-client';
 
 export default async function Home() {
@@ -23,7 +21,7 @@ export default async function Home() {
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
 
-      <TopBar />
+      <TopBar categories={categories.filter((category) => category.products.length > 0)} />
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
