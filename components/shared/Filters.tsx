@@ -21,6 +21,7 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
     text: item.name,
   }));
 
+  // Для RangeSlider
   const updateRangeSliderPrices = (prices: number[]) => {
     filters.setPrices('priceFrom', prices[0]);
     filters.setPrices('priceTo', prices[1]);
