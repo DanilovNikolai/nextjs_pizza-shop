@@ -1,55 +1,30 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 // components
 import { Title, RangeSlider, CheckboxFiltersGroup } from './';
 // ui
-import { Input } from '../ui/input';
+import { Input } from '../ui';
 // custom hooks
-import { useFilterIngredients } from '@/hooks/useFilterIngredients';
-// react-use
-import { useSet } from 'react-use';
+import { useIngredients, useFilters, useFilterQueryParams } from '@/hooks';
 
 interface FiltersProps {
   className?: string;
 }
 
-interface PriceProps {
-  priceFrom: number;
-  priceTo: number;
-}
-
 export const Filters: React.FC<FiltersProps> = ({ className }) => {
-  const { ingredients, loading, handleAddId, selectedIngredients } =
-    useFilterIngredients();
+  const { ingredients, loading } = useIngredients();
+  const filters = useFilters();
+  useFilterQueryParams(filters);
 
-  const [pizzaSizes, { toggle: togglePizzaSizes }] = useSet(
-    new Set<string>([])
-  );
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
-    new Set<string>([])
-  );
-
-  const [prices, setPrices] = useState<PriceProps>({
-    priceFrom: 0,
-    priceTo: 1000,
-  });
-
-  const items = ingredients.map((ingredient) => ({
-    value: String(ingredient.id),
-    text: ingredient.name,
+  const items = ingredients.map((item) => ({
+    value: String(item.id),
+    text: item.name,
   }));
 
-  const handleSetPrice = (name: keyof PriceProps, value: number) => {
-    setPrices({
-      ...prices,
-      [name]: value,
-    });
+  const updateRangeSliderPrices = (prices: number[]) => {
+    filters.setPrices('priceFrom', prices[0]);
+    filters.setPrices('priceTo', prices[1]);
   };
-
-  useEffect(() => {
-    console.log({ prices, pizzaSizes, pizzaTypes, selectedIngredients });
-  }, [prices, pizzaSizes, pizzaTypes, selectedIngredients]);
 
   return (
     <div className={className}>
@@ -60,8 +35,8 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
         title="Тип теста"
         name="pizzaTypes"
         className="mb-5"
-        onClickCheckbox={togglePizzaTypes}
-        selectedValues={pizzaTypes}
+        onClickCheckbox={filters.setPizzaTypes}
+        selectedValues={filters.pizzaTypes}
         items={[
           { text: 'Тонкое', value: '1' },
           { text: 'Традиционное', value: '2' },
@@ -72,8 +47,8 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
         title="Размеры"
         name="pizzaSizes"
         className="mb-5"
-        onClickCheckbox={togglePizzaSizes}
-        selectedValues={pizzaSizes}
+        onClickCheckbox={filters.setPizzaSizes}
+        selectedValues={filters.pizzaSizes}
         items={[
           { text: '20 см', value: '20' },
           { text: '30 см', value: '30' },
@@ -90,30 +65,26 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
             placeholder="0"
             min={0}
             max={1000}
-            value={String(prices.priceFrom)}
-            onChange={(e) =>
-              handleSetPrice('priceFrom', Number(e.target.value))
-            }
+            value={String(filters.prices.priceFrom || '')}
+            onChange={(e) => filters.setPrices('priceFrom', Number(e.target.value))}
           />
           <Input
             type="number"
             placeholder="1000"
             min={100}
             max={1000}
-            value={String(prices.priceTo)}
-            onChange={(e) => handleSetPrice('priceTo', Number(e.target.value))}
+            value={String(filters.prices.priceTo || '')}
+            onChange={(e) => filters.setPrices('priceTo', Number(e.target.value))}
           />
         </div>
 
-        {/* Ползунок */}
+        {/* Ползунок цен */}
         <RangeSlider
           min={0}
           max={1000}
           step={10}
-          value={[prices.priceFrom, prices.priceTo]}
-          onValueChange={([priceFrom, priceTo]) =>
-            setPrices({ priceFrom, priceTo })
-          }
+          value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 1000]}
+          onValueChange={updateRangeSliderPrices}
         />
       </div>
 
@@ -126,8 +97,8 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
         defaultItems={items.slice(0, 6)}
         items={items}
         loading={loading}
-        onClickCheckbox={handleAddId}
-        selectedValues={selectedIngredients}
+        onClickCheckbox={filters.setIngredients}
+        selectedValues={filters.selectedIngredients}
       />
     </div>
   );

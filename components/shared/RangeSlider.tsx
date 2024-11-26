@@ -15,10 +15,7 @@ interface RangeSliderProps {
 }
 
 export const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
-  (
-    { className, min, max, step, formatLabel, value, onValueChange, ...props },
-    ref
-  ) => {
+  ({ className, min, max, step, formatLabel, value, onValueChange, ...props }, ref) => {
     const initialValue = Array.isArray(value) ? value : [min, max];
     const [localValues, setLocalValues] = React.useState(initialValue);
 
@@ -42,13 +39,9 @@ export const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
         step={step}
         value={localValues}
         onValueChange={handleValueChange}
-        className={cn(
-          'relative flex w-full touch-none select-none mb-6 items-center',
-          className
-        )}
+        className={cn('relative flex w-full touch-none select-none mb-6 items-center', className)}
         {...props}
       >
-
         {/* Полоса */}
         <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-primary/20">
           <SliderPrimitive.Range className="absolute h-full bg-primary" />
@@ -64,9 +57,7 @@ export const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
                 top: `10px`,
               }}
             >
-              <span className="text-sm">
-                {formatLabel ? formatLabel(value) : value}
-              </span>
+              <span className="text-sm">{formatLabel ? formatLabel(value) : value}</span>
             </div>
 
             {/* Ползунки */}
