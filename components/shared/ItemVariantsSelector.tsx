@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 
 type Variant = {
@@ -13,9 +15,14 @@ interface Props {
   selectedValue?: Variant['value'];
 }
 
-export const GroupVariants: React.FC<Props> = ({ items, onClick, selectedValue, className }) => {
+export const ItemVariantsSelector: React.FC<Props> = ({
+  items,
+  onClick,
+  selectedValue,
+  className,
+}) => {
   return (
-    <div className={cn('flex justify-between bg-[#F#F#F7] rounded-3xl p-1 select-none', className)}>
+    <div className={cn('flex justify-between bg-[#f3f3f7] rounded-3xl p-1 select-none', className)}>
       {items.map((item) => (
         <button
           key={item.name}

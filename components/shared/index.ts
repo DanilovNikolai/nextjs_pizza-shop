@@ -4,6 +4,7 @@ export { Container } from './Container';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
 export { Header } from './Header';
+export { ItemVariantsSelector } from './ItemVariantsSelector';
 export { ProductCard } from './ProductCard';
 export { ProductImage } from './ProductImage';
 export { ProductsGroupList } from './ProductsGroupList';
