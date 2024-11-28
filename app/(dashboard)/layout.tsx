@@ -4,9 +4,5 @@ export const metadata = {
 };
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <main className="min-h-screen">{children}</main>
-    </html>
-  );
+  return <main className="min-h-screen">{children}</main>;
 }
