@@ -3,21 +3,22 @@
 // shadcn ui
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui';
 // components
-import { ChooseProductForm } from '../';
-// types
-import { Product } from '@prisma/client';
+import { ChoosePizzaForm, ChooseProductForm } from '../';
 // cn
 import { cn } from '@/lib/utils';
 // next
 import { useRouter } from 'next/navigation';
+// types
+import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {
-  product: Product;
+  product: ProductWithRelations;
   className?: string;
 }
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
+  const isPizzaForm = Boolean(product.variants[0].pizzaType);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -29,7 +30,11 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
         )}
       >
         <DialogTitle className="hidden" />
-        <ChooseProductForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} />
+        {isPizzaForm ? (
+          <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} />
+        ) : (
+          <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
+        )}
       </DialogContent>
     </Dialog>
   );
