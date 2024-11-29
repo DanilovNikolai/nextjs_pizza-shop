@@ -13,9 +13,6 @@ export default function RootLayout({
   children: React.ReactNode;
   modal?: React.ReactNode;
 }>) {
-  console.log('Modal:', modal);
-
-  
   return (
     <main className="min-h-screen">
       <Header />

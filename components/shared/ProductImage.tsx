@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface Props {
   imageUrl: string;
-  size: number;
+  size: 20 | 30 | 40;
   className?: string;
 }
 
