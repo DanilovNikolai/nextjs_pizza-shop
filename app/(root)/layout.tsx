@@ -11,13 +11,16 @@ export default function RootLayout({
   modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  modal?: React.ReactNode;
 }>) {
+  console.log('Modal:', modal);
+
+  
   return (
     <main className="min-h-screen">
       <Header />
       {children}
-      {modal}
+      {modal && <div className="modal-wrapper">{modal}</div>}
     </main>
   );
 }
