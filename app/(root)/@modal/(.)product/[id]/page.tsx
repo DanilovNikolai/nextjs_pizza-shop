@@ -1,5 +1,5 @@
 // components
-import { ChooseProductModal } from '@/components/shared';
+import { ChooseProductModal } from '@/shared/components';
 // prisma
 import { prisma } from '@/prisma/prisma-client';
 // next

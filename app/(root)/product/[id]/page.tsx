@@ -1,7 +1,7 @@
 // prisma
 import { prisma } from '@/prisma/prisma-client';
 // container
-import { Container, ProductImage, Title, ItemVariantsSelector } from '@/components/shared';
+import { Container, PizzaImage, Title, ItemVariantsSelector } from '@/shared/components';
 // next
 import { notFound } from 'next/navigation';
 
@@ -25,7 +25,7 @@ export default async function ProductPage({ params: { id } }: ProductPageProps) 
   return (
     <Container className="flex flex-col my-10">
       <div className="flex flex-1">
-        <ProductImage imageUrl={product.imageUrl} size={30} />
+        <PizzaImage imageUrl={product.imageUrl} size={30} />
 
         <div className="w-[490-px] bg-[#f9f9f9] p-7">
           <Title text={product.name} size="md" className="font-extrabold mb-1" />
@@ -35,7 +35,7 @@ export default async function ProductPage({ params: { id } }: ProductPageProps) 
           </p>
           <ItemVariantsSelector
             selectedValue="2"
-            items={[
+            variants={[
               {
                 name: 'Маленькая',
                 value: '1',
@@ -52,7 +52,7 @@ export default async function ProductPage({ params: { id } }: ProductPageProps) 
             ]}
           />
           <ItemVariantsSelector
-            items={[
+            variants={[
               {
                 name: 'Традиционное тесто',
                 value: '1',
