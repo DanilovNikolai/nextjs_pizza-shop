@@ -1,7 +1,7 @@
 // prisma
 import { prisma } from '@/prisma/prisma-client';
 // container
-import { Container, PizzaImage, Title, ItemVariantsSelector } from '@/shared/components';
+import { Container, PizzaImage, Title, PizzaVariantsSelector } from '@/shared/components';
 // next
 import { notFound } from 'next/navigation';
 
@@ -33,8 +33,8 @@ export default async function ProductPage({ params: { id } }: ProductPageProps) 
           <p className="text-gray-400">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, porro?
           </p>
-          <ItemVariantsSelector
-            selectedValue="2"
+          <PizzaVariantsSelector
+            value="2"
             variants={[
               {
                 name: 'Маленькая',
@@ -51,7 +51,8 @@ export default async function ProductPage({ params: { id } }: ProductPageProps) 
               },
             ]}
           />
-          <ItemVariantsSelector
+          <PizzaVariantsSelector
+            value="1"
             variants={[
               {
                 name: 'Традиционное тесто',
