@@ -4,10 +4,10 @@ import { Checkbox } from './ui/checkbox';
 export interface FilterCheckboxProps {
   text: string;
   value: string;
+  name?: string;
   endAdornment?: React.ReactNode;
   onCheckedChange?: (checked: boolean) => void;
   checked?: boolean;
-  name?: string;
 }
 
 export const FilterCheckbox: React.FC<FilterCheckboxProps> = ({

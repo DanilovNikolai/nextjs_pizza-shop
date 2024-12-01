@@ -6,6 +6,7 @@ export { Container } from './Container';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
 export { Header } from './Header';
+export { IngredientItem } from './IngredientItem';
 export { PizzaImage } from './PizzaImage';
 export { PizzaVariantsSelector } from './PizzaVariantsSelector';
 export { ProductCard } from './ProductCard';

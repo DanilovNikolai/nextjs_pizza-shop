@@ -5,13 +5,13 @@ import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '@/shared/lib/utils';
 
 interface RangeSliderProps {
-  className?: string;
   min: number;
   max: number;
   step: number;
   formatLabel?: (value: number) => string;
   value?: number[] | readonly number[];
   onValueChange?: (values: number[]) => void;
+  className?: string;
 }
 
 export const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(

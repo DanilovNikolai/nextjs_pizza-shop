@@ -11,11 +11,11 @@ import { ProductCard, Title } from '.';
 import { useCategoryStore } from '@/shared/store/category';
 
 interface Props {
-  className?: string;
   items: any[];
   title: string;
   categoryId: number;
   listClassName?: string;
+  className?: string;
 }
 
 export const ProductsGroupList: React.FC<Props> = ({

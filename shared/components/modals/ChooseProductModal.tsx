@@ -25,13 +25,18 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
       <DialogContent
         aria-describedby={undefined}
         className={cn(
-          'p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden',
+          'p-0 w-[1060px] max-w-[1060px] min-h-[550px] bg-white overflow-hidden',
           className
         )}
       >
         <DialogTitle className="hidden" />
         {isPizzaForm ? (
-          <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} />
+          <ChoosePizzaForm
+            imageUrl={product.imageUrl}
+            name={product.name}
+            ingredients={product.ingredients}
+            variants={product.variants}
+          />
         ) : (
           <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
         )}

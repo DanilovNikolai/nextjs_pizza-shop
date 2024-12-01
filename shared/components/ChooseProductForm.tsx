@@ -5,10 +5,10 @@ import { Title } from '.';
 import { Button } from './ui';
 
 interface ChooseProductFormProps {
-  className?: string;
   imageUrl: string;
   name: string;
   onClickAdd?: VoidFunction;
+  className?: string;
 }
 
 export const ChooseProductForm: React.FC<ChooseProductFormProps> = ({

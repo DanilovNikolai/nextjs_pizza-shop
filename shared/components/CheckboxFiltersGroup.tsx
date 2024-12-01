@@ -9,17 +9,17 @@ import { Input, Skeleton } from './ui';
 type Item = FilterCheckboxProps;
 
 interface Props {
-  className?: string;
   title: string;
-  defaultItems?: Item[];
   items: Item[];
-  limit?: number;
-  loading?: boolean;
-  searchInputPlaceholder?: string;
-  onClickCheckbox?: (id: string) => void;
-  defaultValue?: string[];
   selectedValues: Set<string>;
   name?: string;
+  limit?: number;
+  loading?: boolean;
+  defaultItems?: Item[];
+  defaultValue?: string[];
+  onClickCheckbox?: (id: string) => void;
+  searchInputPlaceholder?: string;
+  className?: string;
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
