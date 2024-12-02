@@ -68,10 +68,17 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
 
   // При смене типа пиццы находим первый доступный размер пиццы и делаем его активным
   useEffect(() => {
+    const selectedAndAvailableSize = availablePizzaSizes?.find(
+      (item) => Number(item.value) === size && !item.disabled
+    );
     const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
 
-    if (availableSize) {
-      setSize(Number(availableSize.value) as PizzaSize);
+    // Если размер был выбран и он доступен, то выбираем его
+    if (selectedAndAvailableSize) {
+      setSize(Number(selectedAndAvailableSize?.value) as PizzaSize);
+      // иначе выбираем первый доступный размер
+    } else {
+      setSize(Number(availableSize?.value) as PizzaSize);
     }
   }, [type]);
 
