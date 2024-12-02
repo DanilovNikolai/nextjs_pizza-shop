@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-// react-use
-import { useSet } from 'react-use';
 // cn
 import { cn } from '@/shared/lib/utils';
 // components
@@ -10,11 +7,13 @@ import { PizzaVariantsSelector, PizzaImage, Title, IngredientItem } from '.';
 // shadcn ui
 import { Button } from './ui';
 // consts
-import { pizzaSizes, pizzaTypes, PizzaSize, PizzaType, mapPizzaType } from '../constants/pizza';
+import { pizzaTypes, PizzaSize, PizzaType } from '../constants/pizza';
 // prisma types
 import { Ingredient, ProductItem } from '@prisma/client';
+// custom hooks
+import { usePizzaOptions } from '../hooks';
 // lib
-import { calcTotalPizzaPrice } from '../lib';
+import { getPizzaDetails } from '../lib';
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
@@ -33,12 +32,17 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   onClickAddCart,
   className,
 }) => {
-  const [size, setSize] = useState<PizzaSize>(20);
-  const [type, setType] = useState<PizzaType>(1);
-  // Добавляет в коллекцию Set или убирает из неё id выбранных ингредиентов
-  const [selectedIngredients, { toggle: selectIngredient }] = useSet(new Set<number>([]));
+  const {
+    size,
+    type,
+    setSize,
+    setType,
+    selectedIngredients,
+    selectIngredient,
+    availablePizzaSizes,
+  } = usePizzaOptions(variants);
 
-  const totalPizzaPrice = calcTotalPizzaPrice(
+  const { totalPizzaPrice, productDescription } = getPizzaDetails(
     size,
     type,
     variants,
@@ -46,44 +50,11 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
     selectedIngredients
   );
 
-  const productDescription = `Диаметр ${size} см, ${mapPizzaType[type]} тесто`;
-
-  const filteredPizzasByType = variants.filter((item) => item.pizzaType === type); // При выборе теста получаем все доступные пиццы с данным тестом
-
-  /* Создаем новый массив вариантов пицц с новым свойством 'disabled'. Пробегаемся по всем доступным размерам.
-  Если в массиве availablePizzas есть хотя бы одна пицца, у которой размер (pizzaSize) совпадает со значением текущего размера (variant.value), 
-  то disabled будет false (размер доступен). */
-  const availablePizzaSizes = pizzaSizes.map((variant) => ({
-    name: variant.name,
-    value: variant.value,
-    disabled: !filteredPizzasByType.some(
-      (pizza) => Number(pizza.pizzaSize) === Number(variant.value)
-    ),
-  }));
-
-  // При смене типа пиццы находим первый доступный размер пиццы и делаем его активным
-  useEffect(() => {
-    const selectedAndAvailableSize = availablePizzaSizes?.find(
-      (item) => Number(item.value) === size && !item.disabled
-    );
-    const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
-
-    // Если размер был выбран и он доступен, то выбираем его
-    if (selectedAndAvailableSize) {
-      setSize(Number(selectedAndAvailableSize?.value) as PizzaSize);
-      // иначе выбираем первый доступный размер
-    } else {
-      setSize(Number(availableSize?.value) as PizzaSize);
-    }
-  }, [type]);
-
   // Функция кнопки добавления в корзину
   const handleClickAdd = () => {
     onClickAddCart?.();
     console.log({ size, type, selectedIngredients });
   };
-
-  console.log({ variants, filteredPizzasByType, availablePizzaSizes });
 
   return (
     <div className={cn('flex flex-1', className)}>
