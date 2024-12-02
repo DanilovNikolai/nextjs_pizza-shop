@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // react-use
 import { useSet } from 'react-use';
 // cn
@@ -34,6 +34,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   const [size, setSize] = useState<PizzaSize>(20);
   const [type, setType] = useState<PizzaType>(1);
 
+  // Добавляет в коллекцию Set или убирает из неё id выбранных ингредиентов
   const [selectedIngredients, { toggle: selectIngredient }] = useSet(new Set<number>([]));
 
   const productDescription = `Диаметр ${size} см, ${mapPizzaType[type]} тесто`;
@@ -48,17 +49,33 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
 
   const totalPrice = pizzaPrice + totalIngredientsPrice;
 
+  // Функция кнопки добавления в корзину
   const handleClickAdd = () => {
     onClickAddCart?.();
     console.log({ size, type, selectedIngredients });
   };
 
-  const availablePizzas = variants.filter((item) => item.pizzaType === type);
+  const availablePizzas = variants.filter((item) => item.pizzaType === type); // При выборе теста получаем все доступные размеры пицц
+
+  /* Создаем новый массив вариантов пицц с новым свойством 'disabled'. Пробегаемся по всем доступным размерам.
+  Если в массиве availablePizzas есть хотя бы одна пицца, у которой размер (pizzaSize) совпадает со значением текущего размера (variant.value), 
+  то disabled будет false (размер доступен). */
   const availablePizzaSizes = pizzaSizes.map((variant) => ({
     name: variant.name,
     value: variant.value,
     disabled: !availablePizzas.some((pizza) => Number(pizza.pizzaSize) === Number(variant.value)),
   }));
+
+  // При смене типа пиццы находим первый доступный размер пиццы и делаем его активным
+  useEffect(() => {
+    const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
+
+    if (availableSize) {
+      setSize(Number(availableSize.value) as PizzaSize);
+    }
+  }, [type]);
+
+  console.log({ variants, availablePizzas, availablePizzaSizes });
 
   return (
     <div className={cn('flex flex-1', className)}>
