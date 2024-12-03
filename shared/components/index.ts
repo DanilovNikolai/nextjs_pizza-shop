@@ -1,10 +1,13 @@
 export { Categories } from './Categories';
 export { CartButton } from './CartButton';
 export { CartDrawer } from './CartDrawer';
+export { CartDrawerItem } from './CartDrawerItem';
 export { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
 export { ChooseProductForm } from './ChooseProductForm';
 export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { Container } from './Container';
+export { CountButton } from './CountButton';
+export { CountIconButton } from './CountIconButton';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
 export { Header } from './Header';
@@ -20,3 +23,4 @@ export { Title } from './Title';
 export { TopBar } from './TopBar';
 
 export * from './modals';
+export * from './cart-item-details';
