@@ -1,3 +1,5 @@
+'use client';
+
 import { PropsWithChildren } from 'react';
 // shadcn
 import {
@@ -14,6 +16,9 @@ import {
 import Link from 'next/link';
 // lucide
 import { ArrowRight } from 'lucide-react';
+// component
+import { CartDrawerItem } from './CartDrawerItem';
+import { getCartItemDetails } from '../lib';
 
 interface Props {
   className?: string;
@@ -33,7 +38,184 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children, class
 
         <SheetDescription className="hidden" />
 
-        {/** Items */}
+        <div className="-mx-6 mt-5 overflow-auto scrollbar flex-1">
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              name={'Чоризо фреш'}
+              imageUrl={
+                'https://media.dodostatic.net/image/r:292x292/11EF9050501F3FA690A64053F5F07626.avif'
+              }
+              price={500}
+              quantity={1}
+              details={getCartItemDetails(1, 30, [
+                {
+                  name: 'Сырный бортик',
+                },
+                {
+                  name: 'Сливочная моцарелла',
+                },
+                {
+                  name: 'Сыры чеддер и пармезан',
+                },
+              ])}
+            />
+          </div>
+        </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">
           <div className="w-full">
