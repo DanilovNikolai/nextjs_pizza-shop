@@ -1,5 +1,9 @@
+// zustand
 import { create } from 'zustand';
+// api-client
 import { Api } from '../services/api-client';
+// lib
+import { getCartDetails } from '../lib';
 
 export type ICartItem = {
   id: number;
