@@ -4,23 +4,14 @@ import { create } from 'zustand';
 import { Api } from '../services/api-client';
 // lib
 import { getCartDetails } from '../lib';
-
-export type ICartItem = {
-  id: number;
-  quantity: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  pizzaSize?: number | null;
-  pizzaType?: number | null;
-  ingredients: Array<{ name: string; price: number }>;
-};
+// types
+import { CartStateItem } from '../lib/getCartDetails';
 
 export interface CartState {
   loading: boolean;
   error: boolean;
   totalAmount: number;
-  items: ICartItem[];
+  items: CartStateItem[];
 
   // Получение товаров из корзины
   fetchCartItems: () => Promise<void>;
@@ -44,7 +35,7 @@ export const useCartStore = create<CartState>((set, get) => ({
   fetchCartItems: async () => {
     try {
       set({ loading: true, error: false });
-      const data = Api.cart.fetchCart();
+      const data = await Api.cart.fetchCart();
       set(getCartDetails(data));
     } catch (error) {
       console.error(error);
@@ -54,9 +45,15 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  updateItemQuantity: async (id: number, quantity: number) => {},
+  updateItemQuantity: async (id: number, quantity: number) => {
+    // TODO: Implement this method
+  },
 
-  addCartItem: async (value: any) => {},
+  addCartItem: async (value: any) => {
+    // TODO: Implement this method
+  },
 
-  removeCartItem: async (id: number) => {},
+  removeCartItem: async (id: number) => {
+    // TODO: Implement this method
+  },
 }));
