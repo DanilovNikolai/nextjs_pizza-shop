@@ -44,9 +44,21 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
 
       <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
         <SheetHeader>
-          <SheetTitle>
-            В корзине <span className="font-bold">{items.length} товара</span>
-          </SheetTitle>
+          {items.length === 1 && (
+            <SheetTitle>
+              В корзине <span className="font-bold">{items.length} товар</span>
+            </SheetTitle>
+          )}
+          {items.length > 1 && items.length < 5 && (
+            <SheetTitle>
+              В корзине <span className="font-bold">{items.length} товара</span>
+            </SheetTitle>
+          )}
+          {items.length === 0 && items.length >= 5 && (
+            <SheetTitle>
+              В корзине <span className="font-bold">{items.length} товаров</span>
+            </SheetTitle>
+          )}
         </SheetHeader>
 
         <SheetDescription className="hidden" />
@@ -62,7 +74,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
                 price={item.price}
                 quantity={item.quantity}
                 details={
-                  item.pizzaSize
+                  item.pizzaSize && item.pizzaType
                     ? getCartItemDetails(
                         item.ingredients,
                         item.pizzaType as PizzaType,
