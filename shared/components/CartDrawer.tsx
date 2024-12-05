@@ -43,6 +43,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
       <SheetTrigger asChild>{children}</SheetTrigger>
 
       <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
+        <SheetTitle className="hidden" />
         <SheetHeader>
           {items.length === 1 && (
             <SheetTitle>
@@ -54,7 +55,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
               В корзине <span className="font-bold">{items.length} товара</span>
             </SheetTitle>
           )}
-          {items.length === 0 && items.length >= 5 && (
+          {items.length === 0 || items.length >= 5 && (
             <SheetTitle>
               В корзине <span className="font-bold">{items.length} товаров</span>
             </SheetTitle>
@@ -64,10 +65,9 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
         <SheetDescription className="hidden" />
 
         <div className="-mx-6 mt-5 overflow-auto scrollbar flex-1">
-          <div className="mb-2">
-            {items.map((item) => (
+          {items.map((item) => (
+            <div className="mb-2" key={item.id}>
               <CartDrawerItem
-                key={item.id}
                 id={item.id}
                 name={item.name}
                 imageUrl={item.imageUrl}
@@ -83,8 +83,8 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
                     : ''
                 }
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">
