@@ -33,10 +33,16 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
   const items = useCartStore((state) => state.items);
   const totalAmount = useCartStore((state) => state.totalAmount);
   const fetchCartItems = useCartStore((state) => state.fetchCartItems);
+  const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
 
   useEffect(() => {
     fetchCartItems();
   }, [fetchCartItems]);
+
+  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
 
   return (
     <Sheet>
@@ -55,11 +61,12 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
               В корзине <span className="font-bold">{items.length} товара</span>
             </SheetTitle>
           )}
-          {items.length === 0 || items.length >= 5 && (
-            <SheetTitle>
-              В корзине <span className="font-bold">{items.length} товаров</span>
-            </SheetTitle>
-          )}
+          {items.length === 0 ||
+            (items.length >= 5 && (
+              <SheetTitle>
+                В корзине <span className="font-bold">{items.length} товаров</span>
+              </SheetTitle>
+            ))}
         </SheetHeader>
 
         <SheetDescription className="hidden" />
@@ -73,6 +80,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
                 imageUrl={item.imageUrl}
                 price={item.price}
                 quantity={item.quantity}
+                onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
                 details={
                   item.pizzaSize && item.pizzaType
                     ? getCartItemDetails(
