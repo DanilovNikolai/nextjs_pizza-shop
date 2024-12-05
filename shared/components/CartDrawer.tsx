@@ -30,11 +30,9 @@ interface Props {
 }
 
 export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => {
-  const [items, totalAmount, fetchCartItems] = useCartStore((state) => [
-    state.items,
-    state.totalAmount,
-    state.fetchCartItems,
-  ]);
+  const items = useCartStore((state) => state.items);
+  const totalAmount = useCartStore((state) => state.totalAmount);
+  const fetchCartItems = useCartStore((state) => state.fetchCartItems);
 
   useEffect(() => {
     fetchCartItems();
