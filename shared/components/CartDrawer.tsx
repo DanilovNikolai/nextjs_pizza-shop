@@ -35,6 +35,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
   const fetchCartItems = useCartStore((state) => state.fetchCartItems);
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
 
+  // При открытии drawer запрашиваем список товаров в корзине
   useEffect(() => {
     fetchCartItems();
   }, [fetchCartItems]);
