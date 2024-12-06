@@ -55,7 +55,6 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
 export async function DELETE(req: NextRequest, { params }: Params) {
   try {
-    const body = (await req.json()) as { quantity: number }; // Сохраняем тело запроса клиента в body
     const token = req.cookies.get('cartToken')?.value; // Ищем токен в cookie и сохраняем в token
 
     if (!token) {

@@ -34,6 +34,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
   const totalAmount = useCartStore((state) => state.totalAmount);
   const fetchCartItems = useCartStore((state) => state.fetchCartItems);
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
+  const removeCartItem = useCartStore((state) => state.removeCartItem);
 
   // При открытии drawer запрашиваем список товаров в корзине
   useEffect(() => {
@@ -82,6 +83,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children }) => 
                 price={item.price}
                 quantity={item.quantity}
                 onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                onClickRemove={() => removeCartItem(item.id)}
                 details={
                   item.pizzaSize && item.pizzaType
                     ? getCartItemDetails(

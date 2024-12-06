@@ -23,7 +23,7 @@ export interface CartState {
   addCartItem: (values: any) => Promise<void>;
 
   // Запрос на удаление товара из корзины
-  removeCartItem: (id: number, quantity: number) => Promise<void>;
+  removeCartItem: (id: number) => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -63,6 +63,15 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 
   removeCartItem: async (id: number) => {
-    // TODO: Implement this method
+    try {
+      set({ loading: true, error: false });
+      const data = await Api.cart.removeCartItem(id);
+      set(getCartDetails(data));
+    } catch (error) {
+      console.error(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
   },
 }));
