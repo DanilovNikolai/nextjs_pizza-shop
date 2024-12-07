@@ -20,7 +20,7 @@ interface ChoosePizzaFormProps {
   name: string;
   ingredients: Ingredient[];
   variants: ProductItem[];
-  onClickAddCart?: VoidFunction;
+  onSubmit: (itemId: number, ingrediets: number[]) => void;
   className?: string;
 }
 
@@ -29,7 +29,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   name,
   ingredients,
   variants,
-  onClickAddCart,
+  onSubmit,
   className,
 }) => {
   const {
@@ -40,6 +40,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
     selectedIngredients,
     selectIngredient,
     availablePizzaSizes,
+    currentVariantId,
   } = usePizzaOptions(variants);
 
   const { totalPizzaPrice, productDescription } = getPizzaDetails(
@@ -50,10 +51,11 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
     selectedIngredients
   );
 
-  // Функция кнопки добавления в корзину
+  // Функция кнопки добавления пиццы в корзину. При добавлении отправляем id варианта пиццы и id её ингредиентов
   const handleClickAdd = () => {
-    onClickAddCart?.();
-    console.log({ size, type, selectedIngredients });
+    if (currentVariantId) {
+      onSubmit(currentVariantId, Array.from(selectedIngredients));
+    }
   };
 
   return (
