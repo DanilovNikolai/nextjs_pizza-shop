@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 // components
 import { Container, Title, TopBar, Filters, ProductsGroupList } from '@/shared/components';
 // prisma
@@ -27,7 +28,9 @@ export default async function Home() {
         <div className="flex gap-[80px]">
           {/* Фильтрация */}
           <div className="w-[250px]">
-            <Filters />
+            <Suspense>
+              <Filters />
+            </Suspense>
           </div>
 
           {/* Список товаров */}
