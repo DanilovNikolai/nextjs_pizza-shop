@@ -15,6 +15,7 @@ export { IngredientItem } from './IngredientItem';
 export { PizzaImage } from './PizzaImage';
 export { PizzaVariantsSelector } from './PizzaVariantsSelector';
 export { ProductCard } from './ProductCard';
+export { ProductForm } from './ProductForm';
 export { ProductsGroupList } from './ProductsGroupList';
 export { RangeSlider } from './RangeSlider';
 export { SearchInput } from './SearchInput';

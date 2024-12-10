@@ -10,7 +10,7 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   // Фильтрация продуктов
-  const categories = await findPizzas(searchParams);
+  const filterResult = await findPizzas(searchParams);
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
 
-      <TopBar categories={categories.filter((category) => category.products.length > 0)} />
+      <TopBar categories={filterResult.filter((result) => result.products.length > 0)} />
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
@@ -32,14 +32,14 @@ export default async function Home({ searchParams }: HomeProps) {
           {/* Список товаров */}
           <div className="flex-1">
             <div className="flex flex-col gap-16">
-              {categories.map(
-                (category) =>
-                  category.products.length > 0 && (
+              {filterResult.map(
+                (result) =>
+                  result.products.length > 0 && (
                     <ProductsGroupList
-                      key={category.id}
-                      categoryId={category.id}
-                      title={category.name}
-                      items={category.products}
+                      key={result.id}
+                      categoryId={result.id}
+                      title={result.name}
+                      items={result.products}
                     />
                   )
               )}
