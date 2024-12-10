@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 // react-use
 import { useIntersection } from 'react-use';
 // cn
@@ -9,9 +9,11 @@ import { cn } from '@/shared/lib/utils';
 import { ProductCard, Title } from '.';
 // zustand store
 import { useCategoryStore } from '@/shared/store/category';
+// prisma types
+import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {
-  items: any[];
+  items: ProductWithRelations[];
   title: string;
   categoryId: number;
   listClassName?: string;
@@ -49,6 +51,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             name={product.name}
             imageUrl={product.imageUrl}
             price={product.variants[0].price}
+            ingredients={product.ingredients}
           />
         ))}
       </div>
