@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 // next
 import { useSearchParams } from 'next/navigation';
 // react-use
@@ -76,14 +76,17 @@ export const useFilters = (): ReturnProps => {
     ingredients: Array.from(selectedIngredients),
   };
 
-  return {
-    prices,
-    selectedIngredients,
-    pizzaSizes,
-    pizzaTypes,
-    setPrices: updatePrice,
-    setPizzaTypes: togglePizzaTypes,
-    setPizzaSizes: togglePizzaSizes,
-    setIngredients: toggleIngredients,
-  };
+  return useMemo(
+    () => ({
+      prices,
+      selectedIngredients,
+      pizzaSizes,
+      pizzaTypes,
+      setPrices: updatePrice,
+      setPizzaTypes: togglePizzaTypes,
+      setPizzaSizes: togglePizzaSizes,
+      setIngredients: toggleIngredients,
+    }),
+    [prices, selectedIngredients, pizzaSizes, pizzaTypes]
+  );
 };
