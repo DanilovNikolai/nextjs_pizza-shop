@@ -9,8 +9,9 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
+  // Фильтрация продуктов
   const categories = await findPizzas(searchParams);
-  
+
   return (
     <>
       <Container className="mt-10">
