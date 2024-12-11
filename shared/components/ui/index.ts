@@ -15,6 +15,7 @@ export {
   SheetTitle,
   SheetTrigger,
   SheetFooter,
+  SheetClose,
 } from './sheet';
 export { Skeleton } from './skeleton';
 export { Slider } from './slider';
