@@ -83,17 +83,17 @@ export async function POST(req: NextRequest) {
           quantity: findCartItem.quantity + 1,
         },
       });
+    } else {
+      // Иначе, если идентичного товара в корзине не оказалось, то создаем его
+      await prisma.cartItem.create({
+        data: {
+          cartId: userCart.id,
+          productItemId: body.productItemId,
+          quantity: 1,
+          ingredients: { connect: body.ingredients?.map((id) => ({ id })) },
+        },
+      });
     }
-
-    // Если идентичного товара в корзине не оказалось, то создаем его
-    await prisma.cartItem.create({
-      data: {
-        cartId: userCart.id,
-        productItemId: body.productItemId,
-        quantity: 1,
-        ingredients: { connect: body.ingredients?.map((id) => ({ id })) },
-      },
-    });
 
     // Затем обновляем общую стоимость всех товаров в корзине
     const updatedUserCart = await updateCartTotalAmount(token);
