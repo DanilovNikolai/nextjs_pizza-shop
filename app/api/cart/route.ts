@@ -64,17 +64,31 @@ export async function POST(req: NextRequest) {
 
     const body = (await req.json()) as CreateCartItemValues;
 
-    // Ищем в БД cartItem по параметрам
-    const findCartItem = await prisma.cartItem.findFirst({
+    // Ищем все товары в корзине, соответствующие productItemId и cartId
+    const matchingCartItems = await prisma.cartItem.findMany({
       where: {
         cartId: userCart.id,
         productItemId: body.productItemId,
-        ingredients: { every: { id: { in: body.ingredients } } }, // Каждый id в массиве ингредиентов должен совпадать с id переданного массива
+      },
+      include: {
+        ingredients: true, // Включаем ингредиенты для дальнейшей проверки
       },
     });
 
-    // Если такой товар в корзине нашелся, то обновляем у него quantity на 1
+    // Фильтруем товары для точного совпадения состава ингредиентов
+    const findCartItem = matchingCartItems.find((item) => {
+      // Проверяем совпадение длины массивов ингредиентов
+      if (item.ingredients.length !== body.ingredients?.length) {
+        return false;
+      }
+
+      // Проверяем, что каждый ингредиент в товаре есть в body.ingredients
+      const itemIngredientIds = item.ingredients.map((ingredient) => ingredient.id);
+      return itemIngredientIds.every((id) => body.ingredients?.includes(id));
+    });
+
     if (findCartItem) {
+      // Если идентичный товар найден, увеличиваем его quantity на 1
       await prisma.cartItem.update({
         where: {
           id: findCartItem.id,
@@ -84,7 +98,7 @@ export async function POST(req: NextRequest) {
         },
       });
     } else {
-      // Иначе, если идентичного товара в корзине не оказалось, то создаем его
+      // Иначе, если идентичного товара в корзине не оказалось, создаем новый
       await prisma.cartItem.create({
         data: {
           cartId: userCart.id,
