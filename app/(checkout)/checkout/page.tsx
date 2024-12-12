@@ -1,5 +1,11 @@
 // components
-import { CheckoutItemDetails, Container, Title, WhiteBlock } from '@/shared/components';
+import {
+  CheckoutItem,
+  CheckoutItemDetails,
+  Container,
+  Title,
+  WhiteBlock,
+} from '@/shared/components';
 // ui
 import { Button, Input, Textarea } from '@/shared/components/ui';
 // lucide icons
@@ -17,7 +23,9 @@ export default function CheckoutPage({ className }: CheckoutProps) {
       <div className="flex gap-10">
         {/** Левая сторона */}
         <div className="flex flex-col gap-10 flex-1 mb-20">
-          <WhiteBlock title="1. Корзина">132313232</WhiteBlock>
+          <WhiteBlock title="1. Корзина">
+            <CheckoutItem id={0} name={''} imageUrl={''} price={0} quantity={0} details={''} />
+          </WhiteBlock>
 
           <WhiteBlock title="2. Персональные данные">
             <div className="grid grid-cols-2 gap-5">
