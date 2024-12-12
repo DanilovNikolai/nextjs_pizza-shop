@@ -5,6 +5,7 @@ export { CartDrawerItem } from './CartDrawerItem';
 export { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
 export { CheckoutItem } from './CheckoutItem';
 export { CheckoutItemDetails } from './CheckoutItemDetails';
+export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
 export { ChooseProductForm } from './ChooseProductForm';
 export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { Container } from './Container';

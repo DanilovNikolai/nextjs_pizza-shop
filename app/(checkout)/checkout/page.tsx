@@ -24,7 +24,28 @@ export default function CheckoutPage({ className }: CheckoutProps) {
         {/** Левая сторона */}
         <div className="flex flex-col gap-10 flex-1 mb-20">
           <WhiteBlock title="1. Корзина">
-            <CheckoutItem id={0} name={''} imageUrl={''} price={0} quantity={0} details={''} />
+            <div className="flex flex-col gap-5">
+              <CheckoutItem
+                id={1}
+                name={'Пицца'}
+                imageUrl={
+                  'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
+                }
+                price={350}
+                quantity={1}
+                details={'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'}
+              />
+              <CheckoutItem
+                id={1}
+                name={'Пицца'}
+                imageUrl={
+                  'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
+                }
+                price={350}
+                quantity={1}
+                details={'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'}
+              />
+            </div>
           </WhiteBlock>
 
           <WhiteBlock title="2. Персональные данные">
