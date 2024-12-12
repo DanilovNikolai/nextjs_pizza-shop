@@ -3,6 +3,7 @@ export { CartButton } from './CartButton';
 export { CartDrawer } from './CartDrawer';
 export { CartDrawerItem } from './CartDrawerItem';
 export { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
+export { CheckoutItemDetails } from './CheckoutItemDetails';
 export { ChooseProductForm } from './ChooseProductForm';
 export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { Container } from './Container';
@@ -22,6 +23,7 @@ export { SearchInput } from './SearchInput';
 export { SortPopup } from './SortPopup';
 export { Title } from './Title';
 export { TopBar } from './TopBar';
+export { WhiteBlock } from './WhiteBlock';
 
 export * from './modals';
 export * from './cart-item-details';
