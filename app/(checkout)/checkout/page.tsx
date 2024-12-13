@@ -12,6 +12,7 @@ import {
   CheckoutCart,
   CheckoutPersonalInfo,
   CheckoutAddress,
+  checkoutFormSchema,
 } from '@/shared/components';
 // custom hooks
 import { useCart } from '@/shared/hooks';
@@ -20,7 +21,7 @@ export default function CheckoutPage() {
   const { items, totalAmount, updateItemQuantity, removeCartItem } = useCart();
 
   const form = useForm({
-    resolver: zodResolver(),
+    resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       email: '',
       firstName: '',
