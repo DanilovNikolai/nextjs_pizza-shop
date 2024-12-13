@@ -3,9 +3,9 @@ import { Asterisk } from 'lucide-react';
 // ui
 import { Input } from '../ui';
 // components
-import { ErrorText } from '../ErrorText';
+import { ErrorText, ClearButton } from '../';
 
-interface FormInputProps {
+interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
   required?: boolean;
@@ -29,6 +29,8 @@ export const FormInput: React.FC<FormInputProps> = ({
 
       <div className="relative">
         <Input className="h-12 text-md" {...props} />
+
+        <ClearButton />
       </div>
 
       <ErrorText text="Поле обязательно для заполнения" className="mt-2" />
