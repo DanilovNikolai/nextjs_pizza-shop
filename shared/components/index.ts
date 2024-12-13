@@ -6,6 +6,7 @@ export { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
 export { CheckoutItem } from './CheckoutItem';
 export { CheckoutItemDetails } from './CheckoutItemDetails';
 export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
+export { CheckoutInvoice } from './CheckoutInvoice';
 export { ChooseProductForm } from './ChooseProductForm';
 export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { Container } from './Container';
