@@ -1,3 +1,5 @@
+'use client';
+
 // components
 import {
   CheckoutItem,
@@ -8,14 +10,27 @@ import {
 } from '@/shared/components';
 // ui
 import { Button, Input, Textarea } from '@/shared/components/ui';
+// custom hooks
+import { useCart } from '@/shared/hooks';
+// lib
+import { getCartItemDetails } from '@/shared/lib';
 // lucide icons
 import { ArrowRight, Package, Percent, Truck } from 'lucide-react';
+// types
+import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
 
 interface CheckoutProps {
   className?: string;
 }
 
 export default function CheckoutPage({ className }: CheckoutProps) {
+  const { items, totalAmount, updateItemQuantity, removeCartItem } = useCart();
+
+  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
+
   return (
     <Container className="mt-10">
       <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
@@ -25,26 +40,24 @@ export default function CheckoutPage({ className }: CheckoutProps) {
         <div className="flex flex-col gap-10 flex-1 mb-20">
           <WhiteBlock title="1. Корзина">
             <div className="flex flex-col gap-5">
-              <CheckoutItem
-                id={1}
-                name={'Пицца'}
-                imageUrl={
-                  'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
-                }
-                price={350}
-                quantity={1}
-                details={'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'}
-              />
-              <CheckoutItem
-                id={1}
-                name={'Пицца'}
-                imageUrl={
-                  'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
-                }
-                price={350}
-                quantity={1}
-                details={'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'}
-              />
+              {items.map((item) => (
+                <CheckoutItem
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  imageUrl={item.imageUrl}
+                  price={item.price}
+                  quantity={item.quantity}
+                  details={getCartItemDetails(
+                    item.ingredients,
+                    item.pizzaType as PizzaType,
+                    item.pizzaSize as PizzaSize
+                  )}
+                  disabled={item.disabled}
+                  onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                  onClickRemove={() => removeCartItem(item.id)}
+                />
+              ))}
             </div>
           </WhiteBlock>
 
@@ -70,7 +83,7 @@ export default function CheckoutPage({ className }: CheckoutProps) {
           <WhiteBlock className="p-6 sticky top-4">
             <div className="flex flex-col gap-1">
               <span className="text-xl">Итого:</span>
-              <span className="text-[34px] font-extrabold">3500 ₽</span>
+              <span className="text-[34px] font-extrabold">{totalAmount} ₽</span>
             </div>
 
             <CheckoutItemDetails
