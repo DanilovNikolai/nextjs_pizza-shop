@@ -12,6 +12,7 @@ export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { Container } from './Container';
 export { CountButton } from './CountButton';
 export { CountIconButton } from './CountIconButton';
+export { ErrorText } from './ErrorText';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
 export { Header } from './Header';
