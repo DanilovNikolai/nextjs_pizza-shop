@@ -1,11 +1,13 @@
+'use client';
+
+// react-hook-form
+import { useFormContext } from 'react-hook-form';
 // lucide icons
 import { Asterisk } from 'lucide-react';
 // ui
 import { Input } from '../ui';
 // components
 import { ErrorText, ClearButton } from '../';
-// react-hook-form
-import { useFormContext } from 'react-hook-form';
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
