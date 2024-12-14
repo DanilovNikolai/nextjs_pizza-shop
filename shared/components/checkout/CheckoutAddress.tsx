@@ -10,11 +10,11 @@ interface Props {
   className?: string;
 }
 
-export const CheckoutAddress: React.FC<Props> = () => {
+export const CheckoutAddress: React.FC<Props> = ({className}) => {
   const { control } = useFormContext();
 
   return (
-    <WhiteBlock title="3. Адрес доставки">
+    <WhiteBlock title="3. Адрес доставки" className={className}>
       <div className="flex flex-col gap-5">
         {/** Используем Controller из RHF и оборачиваем в него AddressInput, чтобы использовать в нем логику RHF */}
         <Controller

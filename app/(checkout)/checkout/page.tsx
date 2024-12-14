@@ -20,7 +20,7 @@ import { useCart } from '@/shared/hooks';
 import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
 
 export default function CheckoutPage() {
-  const { items, totalAmount, updateItemQuantity, removeCartItem } = useCart();
+  const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
 
   // Передаем поля и валидатор (zod)
   const form = useForm<CheckoutFormType>({
@@ -60,16 +60,17 @@ export default function CheckoutPage() {
                 items={items}
                 removeCartItem={removeCartItem}
                 onClickCountButton={onClickCountButton}
+                loading={loading}
               />
 
-              <CheckoutPersonalInfo />
+              <CheckoutPersonalInfo className={loading ? 'opacity-40 pointer-events-none' : ''} />
 
-              <CheckoutAddress />
+              <CheckoutAddress className={loading ? 'opacity-40 pointer-events-none' : ''} />
             </div>
 
             {/** Правая сторона */}
             <div className="w-[450px]">
-              <CheckoutInvoice totalAmount={totalAmount} />
+              <CheckoutInvoice totalAmount={totalAmount} loading={loading} />
             </div>
           </div>
         </form>

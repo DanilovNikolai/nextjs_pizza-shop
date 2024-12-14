@@ -4,7 +4,7 @@ import { cn } from '../lib/utils';
 
 interface Props {
   title?: ReactNode;
-  value?: string;
+  value?: ReactNode;
   className?: string;
 }
 
