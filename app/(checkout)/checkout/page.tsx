@@ -1,26 +1,29 @@
 'use client';
 
 // react-hook-form
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 // zod
 import { zodResolver } from '@hookform/resolvers/zod';
 // components
 import {
-  CheckoutInvoice,
   Container,
   Title,
   CheckoutCart,
+  CheckoutInvoice,
   CheckoutPersonalInfo,
   CheckoutAddress,
   checkoutFormSchema,
 } from '@/shared/components';
 // custom hooks
 import { useCart } from '@/shared/hooks';
+// types
+import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
 
 export default function CheckoutPage() {
   const { items, totalAmount, updateItemQuantity, removeCartItem } = useCart();
 
-  const form = useForm({
+  // Передаем поля и валидатор (zod)
+  const form = useForm<CheckoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       email: '',
@@ -32,6 +35,10 @@ export default function CheckoutPage() {
     },
   });
 
+  const onSubmit: SubmitHandler<CheckoutFormType> = (data) => {
+    console.log(data);
+  };
+
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
     updateItemQuantity(id, newQuantity);
@@ -41,25 +48,32 @@ export default function CheckoutPage() {
     <Container className="mt-10">
       <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
 
-      <div className="flex gap-10">
-        {/** Левая сторона */}
-        <div className="flex flex-col gap-10 flex-1 mb-20">
-          <CheckoutCart
-            items={items}
-            removeCartItem={removeCartItem}
-            onClickCountButton={onClickCountButton}
-          />
+      {/** FormProvider передает контекст во все компоненты внутри себя.
+       form.handleSubmit - ф-ция,проверяющая поля на валидность, вызывающаяся при сабмите */}
 
-          <CheckoutPersonalInfo />
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex gap-10">
+            {/** Левая сторона */}
+            <div className="flex flex-col gap-10 flex-1 mb-20">
+              <CheckoutCart
+                items={items}
+                removeCartItem={removeCartItem}
+                onClickCountButton={onClickCountButton}
+              />
 
-          <CheckoutAddress />
-        </div>
+              <CheckoutPersonalInfo />
 
-        {/** Правая сторона */}
-        <div className="w-[450px]">
-          <CheckoutInvoice totalAmount={totalAmount} />
-        </div>
-      </div>
+              <CheckoutAddress />
+            </div>
+
+            {/** Правая сторона */}
+            <div className="w-[450px]">
+              <CheckoutInvoice totalAmount={totalAmount} />
+            </div>
+          </div>
+        </form>
+      </FormProvider>
     </Container>
   );
 }

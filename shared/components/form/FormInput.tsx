@@ -4,6 +4,8 @@ import { Asterisk } from 'lucide-react';
 import { Input } from '../ui';
 // components
 import { ErrorText, ClearButton } from '../';
+// react-hook-form
+import { useFormContext } from 'react-hook-form';
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -19,6 +21,20 @@ export const FormInput: React.FC<FormInputProps> = ({
   className,
   ...props
 }) => {
+  const {
+    register, // регистрирует input внутри react-hook-form, чтобы тот работал через логику этой библиотеки
+    formState: { errors },
+    watch,
+    setValue,
+  } = useFormContext();
+
+  const value = watch(name);
+  const errorText = errors[name]?.message as string;
+
+  const onClickClear = () => {
+    setValue(name, '', { shouldValidate: true });
+  };
+
   return (
     <div className={className}>
       {label && (
@@ -28,12 +44,12 @@ export const FormInput: React.FC<FormInputProps> = ({
       )}
 
       <div className="relative">
-        <Input className="h-12 text-md" {...props} />
+        <Input className="h-12 text-md" {...register(name)} {...props} />
 
-        <ClearButton />
+        {value && <ClearButton onClick={onClickClear} />}
       </div>
 
-      <ErrorText text="Поле обязательно для заполнения" className="mt-2" />
+      {errorText && <ErrorText text={errorText} className="mt-2" />}
     </div>
   );
 };
