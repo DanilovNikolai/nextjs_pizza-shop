@@ -1,3 +1,5 @@
+'use client';
+
 // react dadata
 import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
@@ -6,7 +8,7 @@ interface Props {
   onChange?: (value?: string) => void;
 }
 
-export const AddressInput: React.FC<Props> = ({ onChange }) => {
+const AddressInput: React.FC<Props> = ({ onChange }) => {
   return (
     <AddressSuggestions
       token="f3e36df80af10db0a880c8fb346801fe01550af8"
@@ -14,3 +16,5 @@ export const AddressInput: React.FC<Props> = ({ onChange }) => {
     />
   );
 };
+
+export default AddressInput;
