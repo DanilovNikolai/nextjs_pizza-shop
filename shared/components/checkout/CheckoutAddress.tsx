@@ -1,5 +1,9 @@
+'use client';
+
+// react-hook-form
+import { Controller, useFormContext } from 'react-hook-form';
 // components
-import { FormTextarea, WhiteBlock } from '../';
+import { ErrorText, FormTextarea, WhiteBlock } from '../';
 import AddressInput from '../AddressInputWrapper';
 
 interface Props {
@@ -7,10 +11,22 @@ interface Props {
 }
 
 export const CheckoutAddress: React.FC<Props> = () => {
+  const { control } = useFormContext();
+
   return (
     <WhiteBlock title="3. Адрес доставки">
       <div className="flex flex-col gap-5">
-        <AddressInput />
+        {/** Используем Controller из RHF и оборачиваем в него AddressInput, чтобы использовать в нем логику RHF */}
+        <Controller
+          control={control}
+          name="address"
+          render={({ field, fieldState }) => (
+            <>
+              <AddressInput onChange={field.onChange} />
+              {fieldState.error?.message && <ErrorText text={fieldState.error.message} />}
+            </>
+          )}
+        />
 
         <FormTextarea
           name="comment"
