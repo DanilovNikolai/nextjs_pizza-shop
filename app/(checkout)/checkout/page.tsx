@@ -18,6 +18,8 @@ import {
 import { useCart } from '@/shared/hooks';
 // types
 import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
+// server actions
+import { createOrder } from '@/app/actions';
 
 export default function CheckoutPage() {
   const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
@@ -37,6 +39,7 @@ export default function CheckoutPage() {
 
   const onSubmit: SubmitHandler<CheckoutFormType> = (data) => {
     console.log(data);
+    createOrder(data);
   };
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
