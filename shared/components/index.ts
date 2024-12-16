@@ -30,6 +30,7 @@ export { Title } from './Title';
 export { TopBar } from './TopBar';
 export { WhiteBlock } from './WhiteBlock';
 
+export * from './email-templates';
 export * from './form';
 export * from './modals';
 export * from './checkout';

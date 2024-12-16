@@ -3,10 +3,14 @@
 // psrima
 import { prisma } from '@/prisma/prisma-client';
 // type
-import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
 import { OrderStatus } from '@prisma/client';
+import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
+// lib
+import { sendEmail } from '@/shared/lib';
 // next
 import { cookies } from 'next/headers';
+// components
+import { PayOrderEmail } from '@/shared/components/email-templates/PayOrderEmail';
 
 export const createOrder = async (data: CheckoutFormType) => {
   try {
@@ -80,7 +84,19 @@ export const createOrder = async (data: CheckoutFormType) => {
     });
 
     //TODO: Сделать создание ссылки оплаты
-  } catch (error) {}
+
+    await sendEmail(
+      data.email,
+      `Next Pizza / Оплатите заказ #${order.id}`,
+      PayOrderEmail({
+        orderId: order.id,
+        totalAmount: order.totalAmount,
+        paymentUrl: 'https://resend.com/docs/send-with-nextjs',
+      })
+    );
+  } catch (error) {
+    console.log('[CreateOrder] Server error', error);
+  }
 
   return 'https://react-hot-toast.com';
 };
