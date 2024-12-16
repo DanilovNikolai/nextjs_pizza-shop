@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 // react-hook-form
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 // zod
@@ -20,8 +21,11 @@ import { useCart } from '@/shared/hooks';
 import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
 // server actions
 import { createOrder } from '@/app/actions';
+// react-hot-toast
+import toast from 'react-hot-toast';
 
 export default function CheckoutPage() {
+  const [submitting, setSubmitting] = useState(false);
   const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
 
   // Передаем поля и валидатор (zod)
@@ -37,9 +41,26 @@ export default function CheckoutPage() {
     },
   });
 
-  const onSubmit: SubmitHandler<CheckoutFormType> = (data) => {
-    console.log(data);
-    createOrder(data);
+  const onSubmit: SubmitHandler<CheckoutFormType> = async (data) => {
+    try {
+      setSubmitting(true);
+      const url = await createOrder(data);
+
+      toast.success('Заказ успешно оформлен! 📝 Переход на оплату... ', {
+        icon: '✅',
+      });
+
+      if (url) {
+        location.href = url; // перенаправляем пользователя на новый url, location - глобальный объект из JS
+      }
+    } catch (error) {
+      console.log(error);
+      setSubmitting(false);
+      toast.error('Не удалось создать заказ'),
+        {
+          icon: '❌',
+        };
+    }
   };
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
@@ -73,7 +94,7 @@ export default function CheckoutPage() {
 
             {/** Правая сторона */}
             <div className="w-[450px]">
-              <CheckoutInvoice totalAmount={totalAmount} loading={loading} />
+              <CheckoutInvoice totalAmount={totalAmount} loading={loading || submitting} />
             </div>
           </div>
         </form>

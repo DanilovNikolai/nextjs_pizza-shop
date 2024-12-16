@@ -24,4 +24,6 @@ export const createOrder = async (data: CheckoutFormType) => {
       comment: data.comment,
     },
   });
+
+  return 'https://react-hot-toast.com';
 };
