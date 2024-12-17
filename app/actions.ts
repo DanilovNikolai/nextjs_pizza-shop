@@ -6,7 +6,7 @@ import { prisma } from '@/prisma/prisma-client';
 import { OrderStatus } from '@prisma/client';
 import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchema';
 // lib
-import { sendEmail } from '@/shared/lib';
+import { createPayment, sendEmail } from '@/shared/lib';
 // next
 import { cookies } from 'next/headers';
 // components
@@ -82,8 +82,26 @@ export const createOrder = async (data: CheckoutFormType) => {
       },
     });
 
-    //TODO: Сделать создание ссылки оплаты
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      orderId: order.id,
+      description: `Оплата заказа #${order.id}`,
+    });
 
+    if (!paymentData) {
+      throw new Error('Payment data not found');
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url;
 
     // Отправляем email о сделанном заказе с помощью сервиса Resend.com
     await sendEmail(
@@ -92,12 +110,12 @@ export const createOrder = async (data: CheckoutFormType) => {
       PayOrderEmail({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        paymentUrl: 'https://resend.com/docs/send-with-nextjs',
+        paymentUrl,
       })
     );
+
+    return paymentUrl;
   } catch (error) {
     console.log('[CreateOrder] Server error', error);
   }
-
-  return 'https://react-hot-toast.com';
 };
