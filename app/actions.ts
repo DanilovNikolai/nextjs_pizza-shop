@@ -76,7 +76,6 @@ export const createOrder = async (data: CheckoutFormType) => {
       },
     });
 
-    // Оч
     await prisma.cartItem.deleteMany({
       where: {
         cartId: userCart.id,
@@ -85,6 +84,8 @@ export const createOrder = async (data: CheckoutFormType) => {
 
     //TODO: Сделать создание ссылки оплаты
 
+
+    // Отправляем email о сделанном заказе с помощью сервиса Resend.com
     await sendEmail(
       data.email,
       `Next Pizza / Оплатите заказ #${order.id}`,
