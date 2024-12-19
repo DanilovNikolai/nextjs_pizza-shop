@@ -62,7 +62,7 @@ export const createOrder = async (data: CheckoutFormType) => {
         token: cartToken,
         totalAmount: userCart.totalAmount,
         status: OrderStatus.PENDING,
-        items: JSON.stringify(userCart.items),
+        items: userCart.items,
       },
     });
 

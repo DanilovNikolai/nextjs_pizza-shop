@@ -1,29 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from 'react';
 // qs lib
-import qs from "qs";
+import qs from 'qs';
 // types
-import { Filters } from "./useFilters";
+import { Filters } from './useFilters';
 // next
 import { useRouter } from 'next/navigation';
 
 export const useFilterQueryParams = (filters: Filters): void => {
+  const isMounted = useRef(false);
   const router = useRouter();
 
-    // Генерирует query string в url на основе выбранных фильтров
-    useEffect(() => {
+  // Генерирует query string в url на основе выбранных фильтров
+  useEffect(() => {
+    // При первом рендере пропускаем это действие, т.к. isMounted.current = false
+    // При втором и последующих рендерах действие выполняется
+    if (isMounted.current) {
       const queryParams = {
         ...filters.prices,
         pizzaTypes: Array.from(filters.pizzaTypes),
         pizzaSizes: Array.from(filters.pizzaSizes),
         ingredients: Array.from(filters.selectedIngredients),
       };
-  
+
       const queryString = qs.stringify(queryParams, {
         arrayFormat: 'comma',
       });
-  
+
       router.push(`?${queryString}`, {
         scroll: false,
       });
-    }, [filters, router]);
+    }
+
+    isMounted.current = true;
+  }, [filters, router]);
 };
