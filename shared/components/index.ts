@@ -23,6 +23,8 @@ export { PizzaVariantsSelector } from './PizzaVariantsSelector';
 export { ProductCard } from './ProductCard';
 export { ProductForm } from './ProductForm';
 export { ProductsGroupList } from './ProductsGroupList';
+export { ProfileButton } from './ProfileButton';
+export { Providers } from './Providers';
 export { RangeSlider } from './RangeSlider';
 export { SearchInput } from './SearchInput';
 export { SortPopup } from './SortPopup';

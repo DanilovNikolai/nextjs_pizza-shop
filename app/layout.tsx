@@ -3,7 +3,7 @@ import { Nunito } from 'next/font/google';
 // styles
 import './globals.css';
 // components
-import { Providers } from '@/shared/components/Providers';
+import { Providers } from '@/shared/components';
 
 const nunito = Nunito({
   subsets: ['cyrillic'],
