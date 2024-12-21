@@ -14,6 +14,8 @@ import { Button } from './ui';
 import { User } from 'lucide-react';
 // react-hot-toast
 import toast from 'react-hot-toast';
+// next-auth
+import { useSession, signIn } from 'next-auth/react';
 
 interface HeaderProps {
   hasSearch?: boolean;
@@ -26,7 +28,10 @@ export const Header: React.FC<HeaderProps> = ({
   hasCartButton = true,
   className,
 }) => {
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
+
+  console.log(session);
 
   useEffect(() => {
     if (searchParams.has('paid')) {
@@ -59,7 +64,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Правая часть */}
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="flex items-center gap-1">
+          <Button
+            onClick={() =>
+              signIn('github', {
+                callbackUrl: '/',
+                redirect: true,
+              })
+            }
+            variant="outline"
+            className="flex items-center gap-1"
+          >
             <User size={16} />
             Войти
           </Button>
