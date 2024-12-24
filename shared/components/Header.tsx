@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+// cn
 import { cn } from '@/shared/lib/utils';
 // components
-import { CartButton, Container, ProfileButton, SearchInput } from '.';
+import { AuthModal, CartButton, Container, ProfileButton, SearchInput } from '.';
 // next
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 // react-hot-toast
 import toast from 'react-hot-toast';
-
 
 interface HeaderProps {
   hasSearch?: boolean;
@@ -23,6 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
   hasCartButton = true,
   className,
 }) => {
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -56,7 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Правая часть */}
         <div className="flex items-center gap-3">
-          <ProfileButton />
+          <AuthModal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCartButton && (
             <div>
