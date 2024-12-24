@@ -1,5 +1,5 @@
 // shadcn ui
-import { Button, Dialog, DialogContent } from '../ui';
+import { Button, Dialog, DialogContent, DialogTitle, SheetDescription } from '../ui';
 // next-auth
 import { signIn } from 'next-auth/react';
 
@@ -17,6 +17,8 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="w-[450px] bg-white p-10">
+        <DialogTitle className="hidden" />
+        <SheetDescription className="hidden" />
         FORM
         <hr />
         <div className="flex gap-2">
