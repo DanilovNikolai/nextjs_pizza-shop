@@ -61,6 +61,36 @@ export const authOptions = {
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: 'jwt',
+  },
+  callbacks: {
+    async jwt({ token }) {
+      const foundUser = await prisma.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (foundUser) {
+        token.id = String(foundUser.id);
+        token.name = foundUser.fullName;
+        token.email = foundUser.email;
+        token.role = foundUser.role;
+      }
+
+      return token;
+    },
+    session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+      }
+
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
