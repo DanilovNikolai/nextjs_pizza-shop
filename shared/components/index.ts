@@ -17,6 +17,7 @@ export { ErrorText } from './ErrorText';
 export { FilterCheckbox } from './FilterCheckbox';
 export { Filters } from './Filters';
 export { Header } from './Header';
+export { InfoBlock } from './InfoBlock';
 export { IngredientItem } from './IngredientItem';
 export { PizzaImage } from './PizzaImage';
 export { PizzaVariantsSelector } from './PizzaVariantsSelector';
