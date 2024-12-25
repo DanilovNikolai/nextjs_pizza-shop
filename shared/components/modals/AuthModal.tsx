@@ -1,7 +1,12 @@
+'use client';
+
+import { useState } from 'react';
 // shadcn ui
 import { Button, Dialog, DialogContent, DialogTitle, SheetDescription } from '../ui';
 // next-auth
 import { signIn } from 'next-auth/react';
+// components
+import { LoginForm, RegisterForm } from './forms';
 
 interface Props {
   isOpen: boolean;
@@ -9,7 +14,13 @@ interface Props {
   className?: string;
 }
 
-export const AuthModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
+export const AuthModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const [formType, setFormType] = useState<'login' | 'register'>('login');
+
+  const onSwitchFormType = () => {
+    setFormType(formType === 'login' ? 'register' : 'login');
+  };
+
   const handleClose = () => {
     onClose();
   };
@@ -19,7 +30,13 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
       <DialogContent className="w-[450px] bg-white p-10">
         <DialogTitle className="hidden" />
         <SheetDescription className="hidden" />
-        FORM
+
+        {formType === 'login' ? (
+          <LoginForm onClose={handleClose} />
+        ) : (
+          <RegisterForm onClose={handleClose} />
+        )}
+
         <hr />
         <div className="flex gap-2">
           <Button
@@ -55,6 +72,10 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, className }) => {
             Google
           </Button>
         </div>
+
+        <Button variant="outline" onClick={onSwitchFormType} type="button" className="h-12">
+          {formType === 'login' ? 'Регистрация' : 'Войти'}
+        </Button>
       </DialogContent>
     </Dialog>
   );

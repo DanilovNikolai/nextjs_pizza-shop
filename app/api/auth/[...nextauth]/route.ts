@@ -26,7 +26,7 @@ export const authOptions = {
         if (!credentials) {
           return null;
         }
-
+        
         // Ищем пользователя в БД по email
         const foundUser = await prisma.user.findFirst({
           where: {

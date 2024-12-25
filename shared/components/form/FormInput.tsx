@@ -40,8 +40,8 @@ export const FormInput: React.FC<FormInputProps> = ({
   return (
     <div className={className}>
       {label && (
-        <p className="font-medium mb-2">
-          {label} {required && <Asterisk className="text-red-500" />}
+        <p className="flex font-medium mb-2">
+          {label} {required && <Asterisk className="text-red-500" size={12}/>}
         </p>
       )}
 
