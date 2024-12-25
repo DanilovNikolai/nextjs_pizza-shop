@@ -15,6 +15,8 @@ import { signOut } from 'next-auth/react';
 import { Container, Title, FormInput } from './';
 // shadcn ui
 import { Button } from './ui';
+// server actions
+import { updateUserInfo } from '@/app/actions';
 
 interface Props {
   data: User;
