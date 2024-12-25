@@ -4,14 +4,24 @@ import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 // prisma
 import { prisma } from '@/prisma/prisma-client';
+import { UserRole } from '@prisma/client';
 // bcrypt
-import { compare } from 'bcrypt';
+import { compare, hashSync } from 'bcrypt';
 
 export const authOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name || profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+          role: 'USER' as UserRole,
+        };
+      },
     }),
 
     CredentialsProvider({
@@ -26,7 +36,7 @@ export const authOptions = {
         if (!credentials) {
           return null;
         }
-        
+
         // Ищем пользователя в БД по email
         const foundUser = await prisma.user.findFirst({
           where: {
@@ -66,6 +76,62 @@ export const authOptions = {
     strategy: 'jwt',
   },
   callbacks: {
+    // Функция, которая обрабатывает вход всеми тремя способами - через credential, github или google
+    async signIn({ user, account }) {
+      try {
+        // Если логин через почту и пароль, то продолжаем авторизацию через CredentialsProvider
+        if (account?.provider === 'credentials') {
+          return true;
+        }
+
+        // Если через GitHub или Google и у пользователя нет почты, то прекращаем авторизацию
+        if (!user.email) {
+          return false;
+        }
+
+        // Если email есть, то ищем пользователя в БД по email или по id github или google
+        const foundUser = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { provider: account?.provider, providerId: account?.providerAccountId },
+              { email: user.email },
+            ],
+          },
+        });
+
+        // Если такой пользователь нашелся, то обновляем ему в БД provider и providerId
+        if (foundUser) {
+          await prisma.user.update({
+            where: {
+              id: foundUser.id,
+            },
+            data: {
+              provider: account?.provider,
+              providerId: account?.providerAccountId,
+            },
+          });
+          return true;
+        }
+
+        // Иначе, если такого пользователя в БД нет, то создаем его
+        await prisma.user.create({
+          data: {
+            email: user.email,
+            password: hashSync(user.id.toString(), 10),
+            fullName: user.name || 'User #' + user.id,
+            verified: new Date(),
+            provider: account?.provider,
+            providerId: account?.providerAccountId,
+          },
+        });
+
+        return true;
+      } catch (error) {
+        console.error('[SIGNIN] error', error);
+        return false;
+      }
+    },
+
     async jwt({ token }) {
       const foundUser = await prisma.user.findFirst({
         where: {
