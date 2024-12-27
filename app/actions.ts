@@ -11,6 +11,7 @@ import { createPayment, sendEmail } from '@/shared/lib';
 import { cookies } from 'next/headers';
 // components
 import { PayOrderEmail } from '@/shared/components/email-templates/PayOrderEmail';
+import { VerificationUserEmail } from '@/shared/components';
 // lib
 import { getUserSession } from '@/shared/lib/getUserSession';
 // bcrypt
@@ -185,6 +186,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     // Далее создаем рандомный код для верификации почты
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
+    // Создаем запись с кодом в таблице БД для конкретного userId
     await prisma.verificationCode.create({
       data: {
         code,
@@ -192,7 +194,14 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       },
     });
 
-    
+    // Отправляем письмо с кодом на почту
+    await sendEmail(
+      createdUser.email,
+      `Next Pizza / Подтверждение регистрации`,
+      VerificationUserEmail({
+        code,
+      })
+    );
   } catch (error) {
     console.error('[REGISTER_USER] error', error);
     throw error;

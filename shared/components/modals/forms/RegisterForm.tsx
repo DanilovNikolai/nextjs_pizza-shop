@@ -10,6 +10,8 @@ import { FormInput, Title } from '../..';
 import { Button } from '../../ui';
 // react-hot-toast
 import toast from 'react-hot-toast';
+// server actions
+import { registerUser } from '@/app/actions';
 
 interface Props {
   onClose?: VoidFunction;
