@@ -1,3 +1,4 @@
+// components
 import { FormInput, WhiteBlock } from '../';
 
 interface Props {
