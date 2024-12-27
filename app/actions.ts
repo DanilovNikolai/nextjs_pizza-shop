@@ -156,25 +156,39 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
 
 export async function registerUser(body: Prisma.UserCreateInput) {
   try {
+    // Ищем пользователя в БД
     const user = await prisma.user.findFirst({
       where: {
         email: body.email,
       },
     });
 
+    // Если пользователь нашелся, то смотрим подтверждена ли у него почта, если нет, то кидаем ошибку
     if (user) {
       if (!user?.verified) {
         throw new Error('Почта не подтверждена');
       }
 
+      // Если пользователь с верифицированной почтой уже есть, то кидаем ошибку
       throw new Error('Пользователь с таким email уже существует!');
     }
 
-    const createdUser = prisma.user.create({
+    // Если пользователя такого не нашлось, то создаем его
+    const createdUser = await prisma.user.create({
       data: {
         fullName: body.fullName,
         email: body.email,
         password: hashSync(body.password, 10),
+      },
+    });
+
+    // Далее создаем рандомный код для верификации почты
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await prisma.verificationCode.create({
+      data: {
+        code,
+        userId: createdUser.id,
       },
     });
 
