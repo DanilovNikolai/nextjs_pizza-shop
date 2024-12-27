@@ -16,7 +16,7 @@ import { getUserSession } from '@/shared/lib/getUserSession';
 // bcrypt
 import { hashSync } from 'bcrypt';
 
-export const createOrder = async (data: CheckoutFormType) => {
+export async function createOrder(data: CheckoutFormType) {
   try {
     const cookieStore = cookies(); // вытаскиваем куки с помощью cookies(), т.к. req.cookies в серверных экшенах недоступен (нет доступа к req, resp)
     const cartToken = cookieStore.get('cartToken')?.value;
@@ -122,7 +122,7 @@ export const createOrder = async (data: CheckoutFormType) => {
   } catch (error) {
     console.log('[CreateOrder] Server error', error);
   }
-};
+}
 
 export async function updateUserInfo(body: Prisma.UserUpdateInput) {
   try {
@@ -150,6 +150,37 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
     });
   } catch (error) {
     console.error('[UPDATE_USER] error', error);
+    throw error;
+  }
+}
+
+export async function registerUser(body: Prisma.UserCreateInput) {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: body.email,
+      },
+    });
+
+    if (user) {
+      if (!user?.verified) {
+        throw new Error('Почта не подтверждена');
+      }
+
+      throw new Error('Пользователь с таким email уже существует!');
+    }
+
+    const createdUser = prisma.user.create({
+      data: {
+        fullName: body.fullName,
+        email: body.email,
+        password: hashSync(body.password, 10),
+      },
+    });
+
+    
+  } catch (error) {
+    console.error('[REGISTER_USER] error', error);
     throw error;
   }
 }

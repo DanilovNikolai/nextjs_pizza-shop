@@ -11,17 +11,17 @@ datasource db {
 
 // Создание таблиц
 model User {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   fullName   String
-  email      String   @unique
+  email      String    @unique
   password   String
-  role       UserRole @default(USER)
-  verified   DateTime
+  role       UserRole  @default(USER)
+  verified   DateTime?
   provider   String?
   providerId String?
-  cartId     Int?     @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  cartId     Int?      @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   cart             Cart?
   orders           Order[]
