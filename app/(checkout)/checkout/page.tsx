@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // react-hook-form
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 // zod
@@ -23,10 +23,13 @@ import { CheckoutFormType } from '@/shared/components/checkout/checkoutFormSchem
 import { createOrder } from '@/app/actions';
 // react-hot-toast
 import toast from 'react-hot-toast';
+// next-auth
+import { useSession } from 'next-auth/react';
 
 export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
+  const { data: session } = useSession();
 
   // Передаем поля и валидатор (zod)
   const form = useForm<CheckoutFormType>({
@@ -40,6 +43,13 @@ export default function CheckoutPage() {
       comment: '',
     },
   });
+
+  useEffect(() => {
+    
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session])
 
   const onSubmit: SubmitHandler<CheckoutFormType> = async (data) => {
     try {
