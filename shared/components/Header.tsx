@@ -6,7 +6,7 @@ import { cn } from '@/shared/lib/utils';
 // components
 import { AuthModal, CartButton, Container, ProfileButton, SearchInput } from '.';
 // next
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 // react-hot-toast
@@ -25,25 +25,17 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
-    let toastMessage = '';
-
     if (searchParams.has('paid')) {
-      toastMessage = 'Заказ успешно оплачен! Информация отправлена на почту.';
+      setTimeout(() => {
+        toast.success('Заказ успешно оплачен! Информация отправлена на почту.');
+      }, 1000);
     }
 
     if (searchParams.has('verified')) {
-      toastMessage = 'Ваша почта успешно подтверждена!';
-    }
-
-    if (toastMessage) {
       setTimeout(() => {
-        router.replace('/');
-        toast.success(toastMessage, {
-          duration: 2000,
-        });
+        toast.success('Ваша почта успешно подтверждена!');
       }, 1000);
     }
   }, []);
