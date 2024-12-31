@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 // components
-import { Container, Title, TopBar, Filters, ProductsGroupList } from '@/shared/components';
+import { Container, Title, TopBar, Filters, ProductsGroupList, Stories } from '@/shared/components';
 // lib
 import { findPizzas, GetSearchParams } from '@/shared/lib/findPizzas';
 
@@ -19,6 +19,8 @@ export default async function Home({ searchParams }: HomeProps) {
       </Container>
 
       <TopBar categories={filterResult.filter((result) => result.products.length > 0)} />
+
+        <Stories/>
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">

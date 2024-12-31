@@ -30,6 +30,7 @@ export { Providers } from './Providers';
 export { RangeSlider } from './RangeSlider';
 export { SearchInput } from './SearchInput';
 export { SortPopup } from './SortPopup';
+export { Stories } from './Stories';
 export { Title } from './Title';
 export { TopBar } from './TopBar';
 export { WhiteBlock } from './WhiteBlock';
