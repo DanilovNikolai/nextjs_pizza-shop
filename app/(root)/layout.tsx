@@ -1,23 +1,25 @@
-import type { Metadata } from 'next';
 import { Header } from '@/shared/components';
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Next Pizza | Главная',
-  description: '',
 };
 
-export default function RootLayout({
+export default function HomeLayout({
   children,
   modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal?: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <main className="min-h-screen">
-      <Header />
+      <Suspense>
+        <Header />
+      </Suspense>
       {children}
-      {modal && <div className="modal-wrapper">{modal}</div>}
+      {modal}
     </main>
   );
 }
