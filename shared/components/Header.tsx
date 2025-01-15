@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={cn('border-b', className)}>
-      <Container className="flex items-center justify-between py-8">
+      <Container className="flex items-center justify-between py-8 mmd:flex-col">
         {/* Левая часть */}
         <Link href="/">
           <div className="flex items-center gap-4">
@@ -62,24 +62,26 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </Link>
 
-        {/* Поиск */}
-        {hasSearch && (
-          <div className="mx-10 flex-1">
-            <SearchInput />
-          </div>
-        )}
-
-        {/* Правая часть */}
-        <div className="flex items-center gap-3">
-          <AuthModal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-
-          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-
-          {hasCartButton && (
-            <div>
-              <CartButton />
+        <div className="flex mmd:mt-4">
+          {/* Поиск */}
+          {hasSearch && (
+            <div className="mx-10 flex-1">
+              <SearchInput />
             </div>
           )}
+
+          {/* Правая часть */}
+          <div className="flex items-center gap-3">
+            <AuthModal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+            <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+
+            {hasCartButton && (
+              <div>
+                <CartButton />
+              </div>
+            )}
+          </div>
         </div>
       </Container>
     </header>
