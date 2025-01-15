@@ -6,6 +6,7 @@ import { cn } from '@/shared/lib/utils';
 import Link from 'next/link';
 // zustand store
 import { useCategoryStore } from '@/shared/store/category';
+// types
 import { Category } from '@prisma/client';
 
 interface CategoriesProps {
@@ -28,7 +29,7 @@ export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
               categoryActiveId === id && 'bg-white shadow-md shadow-gray-200 text-primary'
             )}
           >
-            <button className='mmd:text-[0.8em]'>{name}</button>
+            <button className="mmd:text-[0.8em]">{name}</button>
           </Link>
         ))}
       </div>

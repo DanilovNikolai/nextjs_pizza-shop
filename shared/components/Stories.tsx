@@ -45,16 +45,18 @@ export const Stories: React.FC<Props> = ({ className }) => {
   return (
     <>
       <Container className={cn('my-10', className)}>
-        {stories.length === 0 && (
-          <div className="flex gap-2">
-            {[...Array(6)].map((_, index) => (
-              <div
-                key={index}
-                className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse"
-              />
-            ))}
-          </div>
-        )}
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
+          {stories.length === 0 && (
+            <div className="flex gap-2">
+              {[...Array(6)].map((_, index) => (
+                <div
+                  key={index}
+                  className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse mmd:h-[125px] mmd:w-[100px]"
+                />
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Горизонтальный скролл на маленьких экранах */}
         <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
@@ -62,9 +64,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
             <img
               key={story.id}
               onClick={() => handleStoryOpen(story)}
-              className="rounded-md cursor-pointer flex-shrink-0"
-              height={250}
-              width={200}
+              className="w-[200px] h-[250px] rounded-md cursor-pointer flex-shrink-0 mmd:h-[125px] mmd:w-[100px]"
               src={story.previewImageUrl}
             />
           ))}

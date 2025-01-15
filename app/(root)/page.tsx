@@ -14,16 +14,16 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <>
-      <Container className="mt-10 mmd:mt-4">
+      <Container className="mt-10 mmd:mt-4 mmd:hidden">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
 
       <TopBar categories={filterResult.filter((result) => result.products.length > 0)} />
 
-        <Stories/>
+      <Stories />
 
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[80px] mmd:flex-col">
+        <div className="flex gap-[80px] mmd:flex-col mmd:gap-0 mmd:w-full">
           {/* Фильтрация */}
           <div className="w-[250px]">
             <Suspense>

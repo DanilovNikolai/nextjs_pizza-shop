@@ -29,8 +29,12 @@ export const ProductCard: React.FC<Props> = ({
   return (
     <div className={className}>
       <Link href={`product/${id}`}>
-        <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
-          <img className="w-[215px] h-[215px]" src={imageUrl} alt={name} />
+        <div className="flex justify-center p-6 bg-secondary rounded-lg">
+          <img
+            className="w-[215px] h-[215px] mmd:h-[100px] mmd:w-[100px]"
+            src={imageUrl}
+            alt={name}
+          />
         </div>
 
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
@@ -40,7 +44,7 @@ export const ProductCard: React.FC<Props> = ({
         </p>
 
         <div className="flex justify-between items-center mt-4">
-          <span className="text-[20px]">
+          <span className="text-[20px] mmd:text-[15px]">
             от <b>{price} ₽</b>
           </span>
 
