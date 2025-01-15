@@ -13,9 +13,9 @@ interface TopBarProps {
 export const TopBar: React.FC<TopBarProps> = ({ categories, className }) => {
   return (
     <div className={cn('sticky top-0 bg-white py-5 shadow-lg shadow-black/5 z-10', className)}>
-      <Container className="flex items-center justify-between">
-        <Categories items={categories}/>
-        <SortPopup className='mmd:mt-3'/>
+      <Container className="flex items-center justify-between mmd:gap-y-2">
+        <Categories items={categories} />
+        <SortPopup />
       </Container>
     </div>
   );

@@ -14,7 +14,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <>
-      <Container className="mt-10">
+      <Container className="mt-10 mmd:mt-4">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
 
@@ -23,7 +23,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <Stories/>
 
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[80px]">
+        <div className="flex gap-[80px] mmd:flex-col">
           {/* Фильтрация */}
           <div className="w-[250px]">
             <Suspense>

@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={cn('border-b', className)}>
-      <Container className="flex items-center justify-between py-8 mmd:flex-col">
+      <Container className="flex items-center justify-between py-8 mmd:flex-col mmd:py-4">
         {/* Левая часть */}
         <Link href="/">
           <div className="flex items-center gap-4">
