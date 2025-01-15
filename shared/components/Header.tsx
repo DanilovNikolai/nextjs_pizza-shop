@@ -62,10 +62,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </Link>
 
-        <div className="flex mmd:mt-4">
+        <div className="flex flex-1 mmd:flex mmd:mt-4">
           {/* Поиск */}
           {hasSearch && (
-            <div className="mx-10 flex-1">
+            <div className="mx-10 flex-1 mmd:mx-0 mmd:mr-4">
               <SearchInput />
             </div>
           )}

@@ -44,22 +44,31 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      <Container className={cn('flex items-center justify-between gap-2 my-10', className)}>
-        {stories.length === 0 &&
-          [...Array(6)].map((_, index) => (
-            <div key={index} className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse" />
-          ))}
+      <Container className={cn('my-10', className)}>
+        {stories.length === 0 && (
+          <div className="flex gap-2">
+            {[...Array(6)].map((_, index) => (
+              <div
+                key={index}
+                className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse"
+              />
+            ))}
+          </div>
+        )}
 
-        {stories.map((story) => (
-          <img
-            key={story.id}
-            onClick={() => handleStoryOpen(story)}
-            className="rounded-md cursor-pointer"
-            height={250}
-            width={200}
-            src={story.previewImageUrl}
-          />
-        ))}
+        {/* Горизонтальный скролл на маленьких экранах */}
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
+          {stories.map((story) => (
+            <img
+              key={story.id}
+              onClick={() => handleStoryOpen(story)}
+              className="rounded-md cursor-pointer flex-shrink-0"
+              height={250}
+              width={200}
+              src={story.previewImageUrl}
+            />
+          ))}
+        </div>
 
         {open && (
           <div className="absolute left-0 top-0 w-full h-full bg-black/80 flex items-center justify-center z-30">
