@@ -50,38 +50,38 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={cn('border-b', className)}>
-      <Container className="flex items-center justify-between py-8 mmd:flex-col mmd:py-4">
-        {/* Левая часть */}
-        <Link href="/">
-          <div className="flex items-center gap-4">
-            <Image src="/logo.png" alt="logo" width={35} height={35} />
-            <div>
-              <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
-              <p className="text-sm text-gray-400 leading-3">вкусней уже некуда</p>
+      <Container className="flex items-center justify-between py-8 mmd:py-3">
+        <div className='flex flex-1 mmd:flex-col mmd:mr-5'>
+          {/* Левая часть */}
+          <Link href="/">
+            <div className="flex items-center gap-4">
+              <Image src="/logo.png" alt="logo" width={35} height={35} />
+              <div>
+                <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
+                <p className="text-sm text-gray-400 leading-3">вкусней уже некуда</p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
 
-        <div className="flex flex-1 mmd:flex mmd:mt-4">
           {/* Поиск */}
           {hasSearch && (
-            <div className="mx-10 flex-1 mmd:mx-0 mmd:mr-4">
+            <div className="mx-10 flex-1 mmd:mx-0 mmd:mt-4">
               <SearchInput />
             </div>
           )}
+        </div>
 
-          {/* Правая часть */}
-          <div className="flex items-center gap-3">
-            <AuthModal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+        {/* Правая часть */}
+        <div className="flex items-center gap-3 mmd:flex-col">
+          <AuthModal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 
-            <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
-            {hasCartButton && (
-              <div>
-                <CartButton />
-              </div>
-            )}
-          </div>
+          {hasCartButton && (
+            <div>
+              <CartButton />
+            </div>
+          )}
         </div>
       </Container>
     </header>
