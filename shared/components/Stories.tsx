@@ -44,7 +44,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      <Container className={cn('my-10', className)}>
+      <Container className={cn('my-10 mmd:justify-start', className)}>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
           {stories.length === 0 && (
             <div className="flex gap-2">
