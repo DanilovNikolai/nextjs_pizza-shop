@@ -34,7 +34,7 @@ export const ProductCard: React.FC<Props> = ({
         <div className={cn('mmd:flex mmd:justify-start items-center', className)}>
           <div className="flex justify-center p-6 bg-secondary rounded-lg mmd:w-[150px] mmd:h-[150px] mmd:mr-5 mmd:flex-shrink-0">
             <img
-              className="w-[215px] h-[215px] mmd:h-[100%] mmd:w-[100%]"
+              className="w-min-[215px] h-min-[215px] mmd:h-[100%] mmd:w-[100%]"
               src={imageUrl}
               alt={name}
             />

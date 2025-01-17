@@ -17,14 +17,14 @@ export const CheckoutInvoice: React.FC<Props> = ({ loading, totalAmount }) => {
   const vatPrice = (totalAmount * VAT) / 100;
 
   return (
-    <WhiteBlock className="p-6 sticky top-4">
+    <WhiteBlock className="p-6 sticky top-4 mmd:relative">
       <div className="flex flex-col gap-1">
         <span className="text-xl">Итого:</span>
         {loading ? (
           <Skeleton className="w-[50%] h-11" />
         ) : (
           <span className="h-11 text-[34px] font-extrabold">
-            {totalAmount + vatPrice + DELIVERY_PRICE} ₽
+            {(totalAmount + vatPrice + DELIVERY_PRICE).toFixed(2)} ₽
           </span>
         )}
       </div>
