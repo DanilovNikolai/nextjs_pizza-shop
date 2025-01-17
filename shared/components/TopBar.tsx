@@ -33,7 +33,7 @@ export const TopBar: React.FC<TopBarProps> = ({ categories, className }) => {
             </SheetTrigger>
 
             {/* Содержимое шторки */}
-            <SheetContent side="left" className="bg-white w-[70%] h-full">
+            <SheetContent side="left" className="bg-white w-[70%] h-full overflow-y-auto">
               <SheetTitle className="hidden" />
               <SheetDescription className="hidden" />
               <FilterOptions />
