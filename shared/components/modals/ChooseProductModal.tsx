@@ -3,9 +3,19 @@
 // next
 import { useRouter } from 'next/navigation';
 // shadcn ui
-import { Dialog, DialogContent, DialogTitle } from '@/shared/components/ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+} from '@/shared/components/ui';
 // components
 import { ProductForm } from '..';
+// hooks
+import { useIsMobile } from '@/shared/hooks';
 // cn
 import { cn } from '@/shared/lib/utils';
 // types
@@ -18,13 +28,33 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
+  const isMobile = useIsMobile(); // Определяем мобильный режим
 
+  if (!product) return null;
+
+  // Если мобильный экран — рендерим Drawer
+  if (isMobile) {
+    return (
+      <Sheet open={Boolean(product)} onOpenChange={() => router.back()}>
+        <SheetDescription className="hidden" />
+        <SheetContent
+          side="top"
+          className={cn('w-full h-full bg-white overflow-y-auto', className)}
+        >
+          <SheetTitle className="hidden" />
+          <ProductForm product={product} onSubmit={() => router.back()} />
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  // Для десктопов — используем модальное окно
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent
         aria-describedby={undefined}
         className={cn(
-          'p-0 w-[1060px] max-w-[1060px] min-h-[550px] bg-white overflow-hidden',
+          'p-0 w-[90%] max-w-[1060px] min-h-[550px] bg-white overflow-hidden',
           className
         )}
       >

@@ -14,6 +14,8 @@ import { Ingredient, ProductItem } from '@prisma/client';
 import { usePizzaOptions } from '../hooks';
 // lib
 import { getPizzaDetails } from '../lib';
+// react-responsive lib
+import { useMediaQuery } from 'react-responsive';
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
@@ -53,6 +55,8 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
     selectedIngredients
   );
 
+  const isSmallLaptopScreen = useMediaQuery({ query: '(max-width: 1024px)' });
+
   // Функция кнопки добавления пиццы в корзину. При добавлении отправляем id варианта пиццы и id её ингредиентов
   const handleClickAdd = () => {
     if (currentVariantId) {
@@ -66,7 +70,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
         <PizzaImage imageUrl={imageUrl} size={size} />
       </div>
 
-      <div className="w-[490px] bg-[#F9F9F9] p-7">
+      <div className="w-[50%] bg-[#F9F9F9] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p className="text-gray-400">{productDescription}</p>
 
@@ -85,7 +89,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
         </div>
 
         <div className="bg-gray-50 p-4 mt-2 rounded-md h-[420px] overflow-auto scrollbar">
-          <div className="grid grid-cols-3 gap-3 ">
+          <div className={cn('grid grid-cols-3 gap-3', isSmallLaptopScreen && 'grid-cols-2')}>
             {ingredients.map((ingredient) => (
               <IngredientItem
                 key={ingredient.id}
