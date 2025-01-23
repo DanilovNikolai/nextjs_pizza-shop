@@ -27,7 +27,7 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[450px] bg-white p-10">
+      <DialogContent className=" bg-white p-10 w-max-[30%] mmd:p-7 mmd:rounded-2xl">
         <DialogTitle className="hidden" />
         <SheetDescription className="hidden" />
 

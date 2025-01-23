@@ -40,7 +40,7 @@ export const ProductCard: React.FC<Props> = ({
             />
           </div>
 
-          <div className='mmd:flex-1'>
+          <div className="mmd:flex-1">
             <Title text={name} size="sm" className="mb-1 mt-3 font-bold mmd:text-[1.2rem]" />
 
             <p className="text-sm text-gray-400">
