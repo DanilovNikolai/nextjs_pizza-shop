@@ -15,6 +15,7 @@ export { CountButton } from './CountButton';
 export { CountIconButton } from './CountIconButton';
 export { ErrorText } from './ErrorText';
 export { FilterCheckbox } from './FilterCheckbox';
+export { FilterDrawer } from './FilterDrawer';
 export { FilterOptions } from './FilterOptions';
 export { Filters } from './Filters';
 export { Header } from './Header';

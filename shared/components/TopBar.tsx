@@ -1,13 +1,9 @@
 // components
-import { Categories, Container, FilterOptions, SortPopup } from '.';
+import { Categories, Container, FilterDrawer, SortPopup } from '.';
 // cn
 import { cn } from '@/shared/lib/utils';
 // prisma
 import { Category } from '@prisma/client';
-// lucide
-import { Filter } from 'lucide-react';
-// ui
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from './ui';
 
 interface TopBarProps {
   categories: Category[];
@@ -23,22 +19,7 @@ export const TopBar: React.FC<TopBarProps> = ({ categories, className }) => {
           <SortPopup />
 
           {/* На экранах меньше 768px показываем триггер и шторку */}
-          <Sheet>
-            {/* Триггер шторки */}
-            <SheetTrigger className="hidden mmd:block text-lg font-bold cursor-pointer">
-              <div className="hidden mmd:flex mmd:gap-1 mmd:items-center mmd:rounded-xl mmd:py-2 mmd:px-5 mmd:bg-gray-50">
-                <Filter height={16} width={16} className="mr-2" />
-                <span className="text-[0.8rem]">Фильтры</span>
-              </div>
-            </SheetTrigger>
-
-            {/* Содержимое шторки */}
-            <SheetContent side="left" className="bg-white w-[70%] h-full overflow-y-auto">
-              <SheetTitle className="hidden" />
-              <SheetDescription className="hidden" />
-              <FilterOptions />
-            </SheetContent>
-          </Sheet>
+          <FilterDrawer />
         </div>
       </Container>
     </div>
