@@ -16,15 +16,15 @@ export const PizzaImage: React.FC<PizzaImageProps> = ({ imageUrl, size, classNam
 
   // Размеры изображения для каждого `size` на разных экранах
   const sizes = {
-    20: isSmallLaptopScreen ? 200 : 300,
-    30: isSmallLaptopScreen ? 300 : 400,
-    40: isSmallLaptopScreen ? 400 : 500,
+    20: isSmallLaptopScreen ? 150 : 300,
+    30: isSmallLaptopScreen ? 200 : 400,
+    40: isSmallLaptopScreen ? 250 : 500,
   };
 
   // Размеры границ
   const borderSizes = {
-    medium: isSmallLaptopScreen ? sizes[30]-25 : sizes[30]-35, // Граница соответствует среднему размеру
-    large: isSmallLaptopScreen ? sizes[40]-25 : sizes[40]-35, // Граница соответствует большому размеру
+    medium: isSmallLaptopScreen ? sizes[30] - 25 : sizes[30] - 35, // Граница соответствует среднему размеру
+    large: isSmallLaptopScreen ? sizes[40] - 25 : sizes[40] - 35, // Граница соответствует большому размеру
   };
 
   return (
@@ -33,7 +33,9 @@ export const PizzaImage: React.FC<PizzaImageProps> = ({ imageUrl, size, classNam
       <img
         src={imageUrl}
         alt="Pizza"
-        className="relative left-2 top-2 transition-all z-10 duration-300"
+        className={cn('relative left-3 top-2 transition-all z-10 duration-300', {
+          'left-[4px] top-[2px]': isSmallLaptopScreen,
+        })}
         style={{
           width: `${sizes[size]}px`,
           height: `${sizes[size]}px`,

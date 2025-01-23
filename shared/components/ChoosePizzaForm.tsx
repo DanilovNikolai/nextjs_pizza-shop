@@ -57,7 +57,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
 
   const isSmallLaptopScreen = useMediaQuery({ query: '(max-width: 1024px)' });
 
-  // Функция кнопки добавления пиццы в корзину. При добавлении отправляем id варианта пиццы и id её ингредиентов
+  // Функция кнопки добавления пиццы в корзину
   const handleClickAdd = () => {
     if (currentVariantId) {
       onSubmit(currentVariantId, Array.from(selectedIngredients));
@@ -65,12 +65,12 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   };
 
   return (
-    <div className={cn('flex flex-1', className)}>
-      <div className="flex items-center justify-center flex-1 relative w-full">
+    <div className={cn('flex flex-1 mmd:flex-col mmd:items-center', className)}>
+      <div className="flex items-center justify-center flex-1 relative w-full mmd:hidden">
         <PizzaImage imageUrl={imageUrl} size={size} />
       </div>
 
-      <div className="w-[50%] bg-[#F9F9F9] p-7">
+      <div className={cn('w-[50%] bg-[#F9F9F9] p-7 mmd:w-full mmd:p-4')}>
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p className="text-gray-400">{productDescription}</p>
 
@@ -88,8 +88,16 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
           />
         </div>
 
-        <div className="bg-gray-50 p-4 mt-2 rounded-md h-[420px] overflow-auto scrollbar">
-          <div className={cn('grid grid-cols-3 gap-3', isSmallLaptopScreen && 'grid-cols-2')}>
+        <div className="items-center justify-center flex-1 relative w-full hidden mmd:flex mmd:h-[260px]">
+          <PizzaImage imageUrl={imageUrl} size={size} />
+        </div>
+
+        <div
+          className={cn(
+            'bg-gray-50 p-4 mt-2 rounded-md h-[420px] overflow-auto scrollbar mmd:p-2 mmd:h-full mmd:overflow-x-auto'
+          )}
+        >
+          <div className={cn('grid grid-cols-3 gap-3 mmd:flex mmd:gap-3', {"grid-cols-2": isSmallLaptopScreen})}>
             {ingredients.map((ingredient) => (
               <IngredientItem
                 key={ingredient.id}
@@ -98,6 +106,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
                 imageUrl={ingredient.imageUrl}
                 onClick={() => selectIngredient(ingredient.id)}
                 active={selectedIngredients.has(ingredient.id)}
+                className={'mmd:flex-shrink-0'}
               />
             ))}
           </div>
@@ -105,7 +114,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
 
         <Button
           loading={loading}
-          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
+          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10 mmd:mt-5 mmd:px-5 mmd:h-10"
           onClick={handleClickAdd}
         >
           Добавить в корзину за {totalPizzaPrice} ₽

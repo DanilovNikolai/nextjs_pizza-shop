@@ -23,7 +23,7 @@ export const PizzaVariantsSelector: React.FC<Props> = ({ variants, onClick, valu
           key={variant.name}
           onClick={() => onClick?.(variant.value)}
           className={cn(
-            'flex items-center justify-center cursor-pointer h-[30px] px-5 flex-1 rounded-3xl transition-all duration-400 text-sm',
+            'flex items-center justify-center cursor-pointer h-[30px] px-5 flex-1 rounded-3xl transition-all duration-400 text-sm mmd:px-3',
             {
               'bg-white shadow': variant.value === value,
               'text-gray-500 opacity-50 pointer-events-none': variant.disabled,

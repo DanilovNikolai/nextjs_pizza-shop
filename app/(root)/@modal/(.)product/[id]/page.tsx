@@ -26,5 +26,5 @@ export default async function ProductModalPage({ params: { id } }: ProductPagePr
     return notFound();
   }
 
-  return <ChooseProductModal product={product} />;
+  return <ChooseProductModal product={product} className='mmd:p-0'/>;
 }

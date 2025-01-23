@@ -1,5 +1,11 @@
+'use client';
+
+// lucide
 import { CircleCheck } from 'lucide-react';
+// cn
 import { cn } from '../lib/utils';
+// react-responsive
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   imageUrl: string;
@@ -18,19 +24,29 @@ export const IngredientItem: React.FC<Props> = ({
   onClick,
   className,
 }) => {
+  const isSmallLaptopScreen = useMediaQuery({ query: '(max-width: 1024px)' });
+
   return (
     <div
       className={cn(
-        'flex items-center flex-col p-1 rounded-md w-32 text-center relative cursor-pointer shadow-md bg-white',
+        'flex items-center flex-col justify-between p-1 rounded-md w-32 text-center relative cursor-pointer shadow-md bg-white',
         { 'border border-primary': active },
+        { 'w-28': isSmallLaptopScreen },
         className
       )}
       onClick={onClick}
     >
       {active && <CircleCheck className="absolute top-2 right-2 text-primary" />}
-      <img width={110} height={110} src={imageUrl} />
-      <span className="text-xs mb-1">{name}</span>
-      <span className="font-bold">{price} ₽</span>
+      <div className="flex flex-col items-center justify-center">
+        <img
+          width={110}
+          height={110}
+          src={imageUrl}
+          className={cn({ 'w-[50px] h-[50px]': isSmallLaptopScreen })}
+        />
+        <span className="text-xs mb-1">{name}</span>
+      </div>
+      <div className="font-bold">{price} ₽</div>
     </div>
   );
 };
