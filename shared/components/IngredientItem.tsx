@@ -4,8 +4,8 @@
 import { CircleCheck } from 'lucide-react';
 // cn
 import { cn } from '../lib/utils';
-// react-responsive
-import { useMediaQuery } from 'react-responsive';
+// custom hooks
+import { useIsSmallLaptopScreen } from '../hooks';
 
 interface Props {
   imageUrl: string;
@@ -24,7 +24,7 @@ export const IngredientItem: React.FC<Props> = ({
   onClick,
   className,
 }) => {
-  const isSmallLaptopScreen = useMediaQuery({ query: '(max-width: 1024px)' });
+  const isSmallLaptopScreen = useIsSmallLaptopScreen();
 
   return (
     <div

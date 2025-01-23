@@ -11,11 +11,9 @@ import { pizzaTypes, PizzaSize, PizzaType } from '../constants/pizza';
 // prisma types
 import { Ingredient, ProductItem } from '@prisma/client';
 // custom hooks
-import { usePizzaOptions } from '../hooks';
+import { usePizzaOptions, useIsSmallLaptopScreen } from '../hooks';
 // lib
 import { getPizzaDetails } from '../lib';
-// react-responsive lib
-import { useMediaQuery } from 'react-responsive';
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
@@ -55,7 +53,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
     selectedIngredients
   );
 
-  const isSmallLaptopScreen = useMediaQuery({ query: '(max-width: 1024px)' });
+  const isSmallLaptopScreen = useIsSmallLaptopScreen();
 
   // Функция кнопки добавления пиццы в корзину
   const handleClickAdd = () => {
@@ -65,12 +63,14 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   };
 
   return (
-    <div className={cn('flex flex-1 mmd:flex-col mmd:items-center', className)}>
+    <div className={cn('flex flex-1 w-full mmd:flex-col mmd:items-center mmd:h-full', className)}>
       <div className="flex items-center justify-center flex-1 relative w-full mmd:hidden">
         <PizzaImage imageUrl={imageUrl} size={size} />
       </div>
 
-      <div className={cn('w-[50%] bg-[#F9F9F9] p-7 mmd:w-full mmd:p-4')}>
+      <div
+        className={cn('w-[50%] bg-[#F9F9F9] rounded-2xl p-7 mmd:w-full mmd:p-4 mmd:rounded-none')}
+      >
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p className="text-gray-400">{productDescription}</p>
 
@@ -93,11 +93,12 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
         </div>
 
         <div
-          className={cn(
-            'bg-gray-50 p-4 mt-2 rounded-md h-[420px] overflow-auto scrollbar mmd:p-2 mmd:h-full mmd:overflow-x-auto'
-          )}
+          className={cn('bg-gray-50 p-4 mt-2 rounded-md overflow-auto mmd:p-2', {
+            'h-[420px] max-h-[400px] overflow-y-auto overflow-x-hidden': !isSmallLaptopScreen,
+            'overflow-x-auto overflow-y-hidden': isSmallLaptopScreen,
+          })}
         >
-          <div className={cn('grid grid-cols-3 gap-3 mmd:flex mmd:gap-3', {"grid-cols-2": isSmallLaptopScreen})}>
+          <div className={cn('grid grid-cols-3 gap-3 mmd:flex mmd:gap-3')}>
             {ingredients.map((ingredient) => (
               <IngredientItem
                 key={ingredient.id}

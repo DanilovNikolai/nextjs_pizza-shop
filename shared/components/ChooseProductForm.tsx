@@ -22,7 +22,7 @@ export const ChooseProductForm: React.FC<ChooseProductFormProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex flex-1 mmd:flex-col mmd:items-center', className)}>
+    <div className={cn('flex flex-1 w-full mmd:flex-col mmd:items-center', className)}>
       <div className="flex items-center justify-center flex-1 relative w-full mmd:hidden">
         <img
           src={imageUrl}
