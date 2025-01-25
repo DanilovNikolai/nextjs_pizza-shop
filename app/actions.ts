@@ -200,6 +200,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       `Next Pizza / Подтверждение регистрации`,
       VerificationUserEmail({
         code,
+        fullName: createdUser.fullName,
       })
     );
   } catch (error) {

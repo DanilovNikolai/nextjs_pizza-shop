@@ -13,7 +13,6 @@ export const PayOrderEmail: React.FC<PayOrderEmailProps> = ({
 }) => (
   <div>
     <h1>Заказ #{orderId}</h1>
-
     <p>
       Оплатите заказ на сумму <b>{totalAmount} ₽</b>
     </p>
