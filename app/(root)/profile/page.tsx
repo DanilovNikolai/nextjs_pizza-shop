@@ -25,5 +25,5 @@ export default async function ProfilePage() {
     return redirect('/not-auth');
   }
 
-  return <ProfileForm data={user} />;
+  return <ProfileForm data={user} className="mmd:w-full my-5" />;
 }

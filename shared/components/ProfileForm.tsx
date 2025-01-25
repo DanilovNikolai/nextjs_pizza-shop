@@ -17,12 +17,15 @@ import { Container, Title, FormInput } from './';
 import { Button } from './ui';
 // server actions
 import { updateUserInfo } from '@/app/actions';
+// cn
+import { cn } from '../lib/utils';
 
 interface Props {
   data: User;
+  className: string;
 }
 
-export const ProfileForm: React.FC<Props> = ({ data }) => {
+export const ProfileForm: React.FC<Props> = ({ data, className }) => {
   const form = useForm({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -60,32 +63,41 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
   };
 
   return (
-    <Container className="my-10">
-      <Title text={`Личные данные | ${data.fullName}`} size="md" className="font-bold" />
+    <Container className={cn('my-10', className)}>
+      <div className="flex flex-col justify-center items-center mmd:flex-1 mmd:p-5">
+        <Title text={`Личные данные | ${data.fullName}`} size="md" className="font-bold" />
 
-      <FormProvider {...form}>
-        <form className="flex flex-col gap-5 w-96 mt-10" onSubmit={form.handleSubmit(onSubmit)}>
-          <FormInput name="email" label="E-Mail" required />
-          <FormInput name="fullName" label="Полное имя" required />
-
-          <FormInput type="password" name="password" label="Новый пароль" required />
-          <FormInput type="password" name="confirmPassword" label="Повторите пароль" required />
-
-          <Button disabled={form.formState.isSubmitting} className="text-base mt-10" type="submit">
-            Сохранить
-          </Button>
-
-          <Button
-            onClick={onClickSignOut}
-            variant="secondary"
-            disabled={form.formState.isSubmitting}
-            className="text-base"
-            type="button"
+        <FormProvider {...form}>
+          <form
+            className="flex flex-col gap-5 w-96 mt-10 mmd:mt-5 mmd:w-[90%]"
+            onSubmit={form.handleSubmit(onSubmit)}
           >
-            Выйти
-          </Button>
-        </form>
-      </FormProvider>
+            <FormInput name="email" label="E-Mail" required />
+            <FormInput name="fullName" label="Полное имя" required />
+
+            <FormInput type="password" name="password" label="Новый пароль" required />
+            <FormInput type="password" name="confirmPassword" label="Повторите пароль" required />
+
+            <Button
+              disabled={form.formState.isSubmitting}
+              className="text-base mt-10"
+              type="submit"
+            >
+              Сохранить
+            </Button>
+
+            <Button
+              onClick={onClickSignOut}
+              variant="secondary"
+              disabled={form.formState.isSubmitting}
+              className="text-base"
+              type="button"
+            >
+              Выйти
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
     </Container>
   );
 };
