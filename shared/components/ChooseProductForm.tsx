@@ -8,6 +8,7 @@ interface ChooseProductFormProps {
   imageUrl: string;
   name: string;
   price: number;
+  description?: string | null;
   loading?: boolean;
   onSubmit?: VoidFunction;
   className?: string;
@@ -17,6 +18,7 @@ export const ChooseProductForm: React.FC<ChooseProductFormProps> = ({
   imageUrl,
   name,
   price,
+  description,
   loading,
   onSubmit,
   className,
@@ -33,13 +35,7 @@ export const ChooseProductForm: React.FC<ChooseProductFormProps> = ({
 
       <div className="flex flex-col justify-between w-[490px] bg-[#F9F9F9] p-7 mmd:w-full">
         <Title text={name} size="md" className="font-extrabold mb-1" />
-        <p className="text-gray-400">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, ea veritatis illo similique
-          quod iste eos laborum. Velit deleniti, laudantium cupiditate dignissimos possimus qui,
-          rem, vel suscipit nihil labore officia. Voluptas ducimus ipsa, dignissimos quo non dolore,
-          impedit recusandae voluptatem inventore illum mollitia hic amet qui, est voluptatum eum
-          eos.
-        </p>
+        <p className="text-gray-400 mt-3">{description}</p>
 
         <div className="hidden items-center justify-center flex-1 relative w-full mmd:flex">
           <img

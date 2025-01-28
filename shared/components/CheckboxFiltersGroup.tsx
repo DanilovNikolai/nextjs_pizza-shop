@@ -33,7 +33,6 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   onClickCheckbox,
   selectedValues,
   name,
-  defaultValue,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -49,7 +48,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
         {...Array(limit)
           .fill(0)
-          .map((_, index) => <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />)}
+          .map((_, index) => <Skeleton key={index} className="h-6 mb-4 rounded-[8px] mt-3" />)}
         <Skeleton className="h-6 mb-4 w-[50%] rounded-[8px]" />
       </div>
     );

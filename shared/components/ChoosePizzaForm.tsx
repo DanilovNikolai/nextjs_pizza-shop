@@ -20,6 +20,7 @@ interface ChoosePizzaFormProps {
   name: string;
   ingredients: Ingredient[];
   variants: ProductItem[];
+  description?: string | null;
   loading?: boolean;
   onSubmit: (itemId: number, ingrediets: number[]) => void;
   className?: string;
@@ -30,6 +31,7 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   name,
   ingredients,
   variants,
+  description,
   onSubmit,
   loading,
   className,
@@ -72,7 +74,8 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
         className={cn('w-[50%] bg-[#F9F9F9] rounded-2xl p-7 mmd:w-full mmd:p-4 mmd:rounded-none')}
       >
         <Title text={name} size="md" className="font-extrabold mb-1" />
-        <p className="text-gray-400">{productDescription}</p>
+        <p>{productDescription}</p>
+        <p className="text-gray-400 mt-3">{description}</p>
 
         <div className="flex flex-col gap-2 mt-5">
           <PizzaVariantsSelector

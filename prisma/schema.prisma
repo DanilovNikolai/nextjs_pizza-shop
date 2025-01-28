@@ -38,12 +38,13 @@ model Category {
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
-  name       String
-  imageUrl   String
-  categoryId Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  name        String
+  imageUrl    String
+  categoryId  Int
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   category    Category      @relation(fields: [categoryId], references: [id])
   ingredients Ingredient[]
