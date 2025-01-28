@@ -16,6 +16,7 @@ interface Props {
   name: string;
   price: number;
   imageUrl: string;
+  description?: string | null;
   className?: string;
   ingredients: Ingredient[];
 }
@@ -26,13 +27,19 @@ export const ProductCard: React.FC<Props> = ({
   price,
   imageUrl,
   ingredients,
+  description,
   className,
 }) => {
   return (
     <>
       <Link href={`product/${id}`}>
-        <div className={cn('mmd:flex mmd:justify-start items-center', className)}>
-          <div className="flex justify-center p-6 bg-secondary rounded-lg mmd:p-4 mmd:w-[150px] mmd:h-[150px] mmd:mr-5 mmd:flex-shrink-0">
+        <div
+          className={cn(
+            'flex flex-col items-center mmd:flex-row mmd:justify-start h-full self-stretch',
+            className
+          )}
+        >
+          <div className="flex justify-center p-6 bg-secondary rounded-lg mmd:p-4 mmd:w-[130px] mmd:h-[130px] mmd:mr-5 mmd:flex-shrink-0">
             <img
               className="w-min-[215px] h-min-[215px] mmd:h-[100%] mmd:w-[100%]"
               src={imageUrl}
@@ -40,14 +47,15 @@ export const ProductCard: React.FC<Props> = ({
             />
           </div>
 
-          <div className="mmd:flex-1">
-            <Title text={name} size="sm" className="mb-1 mt-3 font-bold mmd:text-[1.2rem]" />
+          {/* Контейнер для контента */}
+          <div className="flex flex-col flex-1 h-full">
+            <div className="flex-1 mb-4">
+              <Title text={name} size="sm" className="mb-1 mt-3 font-bold mmd:text-[1.2rem]" />
+              <p className="text-sm text-gray-400">{description}</p>
+            </div>
 
-            <p className="text-sm text-gray-400">
-              {ingredients ? ingredients.map((ingredient) => ingredient.name).join(', ') : ''}
-            </p>
-
-            <div className="flex justify-between items-center mt-4">
+            {/* Контейнер с ценой и кнопкой, прижатый к низу */}
+            <div className="flex justify-between items-center mt-auto mmd:mt-4">
               <span className="text-[20px] mmd:text-[15px] mmd:mr-3">
                 от <b>{price} ₽</b>
               </span>

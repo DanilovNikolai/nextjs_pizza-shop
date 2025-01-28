@@ -45,7 +45,7 @@ export const ProductsGroupList: React.FC<Props> = ({
 
       <div
         className={cn(
-          'grid grid-cols-3 gap-[40px] mmd:grid-cols-1 mmd:gap-[20px] auto-rows-fr',
+          'grid grid-cols-3 gap-[40px] mmd:grid-cols-1 mmd:gap-4 items-stretch',
           listClassName
         )}
       >
@@ -55,6 +55,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             id={product.id}
             name={product.name}
             imageUrl={product.imageUrl}
+            description={product.description}
             price={product.variants[0].price}
             ingredients={product.ingredients}
           />

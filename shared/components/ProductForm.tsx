@@ -45,6 +45,7 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
         name={product.name}
         ingredients={product.ingredients}
         variants={product.variants}
+        description={product.description}
         onSubmit={onSubmit}
         loading={loading}
       />
@@ -56,6 +57,7 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
       onSubmit={onSubmit}
       imageUrl={product.imageUrl}
       name={product.name}
+      description={product.description}
       price={firstItemVariant.price}
       loading={loading}
     />

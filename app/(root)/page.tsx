@@ -33,7 +33,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
           {/* Список товаров */}
           <div className="flex-1">
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-16 mmd:gap-5">
               {filterResult.map(
                 (result) =>
                   result.products.length > 0 && (
