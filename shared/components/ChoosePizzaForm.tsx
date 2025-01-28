@@ -65,13 +65,21 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
   };
 
   return (
-    <div className={cn('flex flex-1 w-full mmd:flex-col mmd:items-center mmd:h-full', className)}>
+    <div
+      className={cn(
+        'flex flex-1 w-full h-full mmd:flex-col mmd:items-center mmd:h-full',
+        className
+      )}
+    >
       <div className="flex items-center justify-center flex-1 relative w-full mmd:hidden">
         <PizzaImage imageUrl={imageUrl} size={size} />
       </div>
 
       <div
-        className={cn('w-[50%] bg-[#F9F9F9] rounded-2xl p-7 mmd:w-full mmd:p-4 mmd:rounded-none')}
+        className={cn(
+          'w-[50%] h-full bg-[#F9F9F9] rounded-2xl p-7 mmd:w-full mmd:p-4 mmd:rounded-none',
+          { 'w-[60%]': isSmallLaptopScreen }
+        )}
       >
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p>{productDescription}</p>
@@ -96,10 +104,9 @@ export const ChoosePizzaForm: React.FC<ChoosePizzaFormProps> = ({
         </div>
 
         <div
-          className={cn('bg-gray-50 p-4 mt-2 rounded-md overflow-auto mmd:p-2', {
-            'h-[420px] max-h-[400px] overflow-y-auto overflow-x-hidden': !isSmallLaptopScreen,
-            'overflow-x-auto overflow-y-hidden': isSmallLaptopScreen,
-          })}
+          className={cn(
+            'h-[420px] max-h-[280px] overflow-y-auto overflow-x-hidden bg-gray-50 p-4 mt-2 rounded-md mmd:p-2 mmd:max-h-[180px] mmd:overflow-x-auto mmd:overflow-y-hidden'
+          )}
         >
           <div className={cn('grid grid-cols-3 gap-3 mmd:flex mmd:gap-3')}>
             {ingredients.map((ingredient) => (

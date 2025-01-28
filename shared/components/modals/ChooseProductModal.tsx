@@ -54,7 +54,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
       <DialogContent
         aria-describedby={undefined}
         className={cn(
-          'p-0 w-[90%] max-w-[1060px] min-h-[550px] bg-white overflow-hidden',
+          'p-0 w-[90%] max-w-[1060px] max-h-[80%] bg-white overflow-hidden',
           className
         )}
       >

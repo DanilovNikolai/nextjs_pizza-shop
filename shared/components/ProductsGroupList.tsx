@@ -1,16 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-// react-use
-import { useIntersection } from 'react-use';
+import { useEffect } from 'react';
+// react-intersection-observer
+import { useInView } from 'react-intersection-observer';
 // cn
 import { cn } from '@/shared/lib/utils';
 // components
 import { ProductCard, Title } from '.';
 // zustand store
 import { useCategoryStore } from '@/shared/store/category';
-// prisma types
+// prisma
 import { ProductWithRelations } from '@/@types/prisma';
+// custom hooks
+import { useIsSmallLaptopScreen } from '../hooks';
 
 interface Props {
   items: ProductWithRelations[];
@@ -27,25 +29,27 @@ export const ProductsGroupList: React.FC<Props> = ({
   categoryId,
   listClassName,
 }) => {
-  const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
-    threshold: 0.4,
+  const { setActiveId } = useCategoryStore();
+  const isSmallLaptopScreen = useIsSmallLaptopScreen();
+
+  const { ref, inView } = useInView({
+    rootMargin: '-120px 0px 0px 0px',
   });
 
   useEffect(() => {
-    if (intersection?.isIntersecting) {
-      setActiveCategoryId(categoryId);
+    if (inView) {
+      setActiveId(categoryId);
     }
-  }, [categoryId, intersection?.isIntersecting]);
+  }, [inView, categoryId]);
 
   return (
-    <div className={className} id={title} ref={intersectionRef}>
-      <Title text={title} size="lg" className="font-extrabold mb-5" />
+    <div className={cn('scroll-offset', className)} id={title} ref={ref}>
+      <Title text={title} size="lg" className="font-extrabold mb-5 mmd:mb-2" />
 
       <div
         className={cn(
           'grid grid-cols-3 gap-[40px] mmd:grid-cols-1 mmd:gap-4 items-stretch',
+          { 'grid-cols-2': isSmallLaptopScreen },
           listClassName
         )}
       >

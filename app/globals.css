@@ -92,3 +92,13 @@ html {
 #nprogress .spinner-icon {
   @apply border-t-primary border-l-primary !important;
 }
+
+.scroll-offset {
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+  .scroll-offset {
+    scroll-margin-top: 150px;
+  }
+}
