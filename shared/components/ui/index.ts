@@ -3,7 +3,7 @@ export { Checkbox } from './checkbox';
 export * from './dialog';
 export { Drawer } from './drawer';
 export { Input } from './input';
-export { Popover } from './popover';
+export { Popover, PopoverTrigger, PopoverContent } from './popover';
 export { Select } from './select';
 export * from './sheet';
 export { Skeleton } from './skeleton';

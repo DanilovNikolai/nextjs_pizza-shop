@@ -28,20 +28,20 @@ export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
 
   return (
     <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
-      <div className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}>
+      <nav className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}>
         {items.map(({ id, name }) => (
           <button
             key={id}
             onClick={(event) => handleCategoryClick(id, name, event)}
             className={cn(
-              'flex items-center font-bold rounded-xl py-2 px-5 mmd:px-3',
+              'flex items-center font-bold rounded-xl py-2 px-5 mmd:px-3 mmd:text-[0.8em]',
               activeId === id && 'bg-white shadow-md shadow-gray-200 text-primary'
             )}
           >
             {name}
           </button>
         ))}
-      </div>
+      </nav>
     </div>
   );
 };
