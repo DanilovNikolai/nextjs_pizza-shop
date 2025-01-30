@@ -69,13 +69,6 @@ export const useFilters = (): ReturnProps => {
     )
   );
 
-  const filters = {
-    ...prices,
-    pizzaTypes: Array.from(pizzaTypes),
-    pizzaSizes: Array.from(pizzaSizes),
-    ingredients: Array.from(selectedIngredients),
-  };
-
   return useMemo(
     () => ({
       prices,
