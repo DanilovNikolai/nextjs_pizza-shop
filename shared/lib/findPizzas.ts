@@ -2,17 +2,14 @@ import { prisma } from '@/prisma/prisma-client';
 
 export interface GetSearchParams {
   query?: string;
-  sortBy?: string;
+  sortBy?: 'name' | 'price';
+  orderBy?: 'asc' | 'desc';
   pizzaSizes?: string;
   pizzaTypes?: string;
   ingredients?: string;
   priceFrom?: string;
   priceTo?: string;
 }
-
-// export interface GetSearchParams {
-//   [key: string]: string | undefined;
-// }
 
 const DEFAULT_MIN_PRICE = 0;
 const DEFAULT_MAX_PRICE = 1000;
@@ -25,14 +22,16 @@ export const findPizzas = async (params: GetSearchParams) => {
   const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
   const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
 
+  // Определяем порядок сортировки
+  const sortBy = params.sortBy || 'name';
+  const orderBy = params.orderBy || 'asc';
+
+  // Получаем данные без сортировки по цене (это будет сделано позже)
   const filteredProducts = await prisma.category.findMany({
     include: {
       products: {
-        orderBy: {
-          id: 'desc',
-        },
         where: {
-          ingredients: ingredientsArray
+          ingredients: ingredientsArray?.length
             ? {
                 some: {
                   id: {
@@ -43,15 +42,11 @@ export const findPizzas = async (params: GetSearchParams) => {
             : undefined,
           variants: {
             some: {
-              pizzaSize: {
-                in: pizzaSizesArray,
-              },
-              pizzaType: {
-                in: pizzaTypesArray,
-              },
+              pizzaSize: pizzaSizesArray?.length ? { in: pizzaSizesArray } : undefined,
+              pizzaType: pizzaTypesArray?.length ? { in: pizzaTypesArray } : undefined,
               price: {
-                gte: minPrice, // >=
-                lte: maxPrice, // <=
+                gte: minPrice,
+                lte: maxPrice,
               },
             },
           },
@@ -65,14 +60,24 @@ export const findPizzas = async (params: GetSearchParams) => {
                 lte: maxPrice,
               },
             },
-            orderBy: {
-              price: 'asc',
-            },
           },
         },
+        orderBy: sortBy === 'name' ? { name: orderBy } : undefined,
       },
     },
   });
+
+  // Если сортировка по цене, выполняем сортировку вручную
+  if (sortBy === 'price') {
+    filteredProducts.forEach((category) => {
+      category.products.sort((a, b) => {
+        const minPriceA = Math.min(...a.variants.map((v) => v.price));
+        const minPriceB = Math.min(...b.variants.map((v) => v.price));
+
+        return orderBy === 'asc' ? minPriceA - minPriceB : minPriceB - minPriceA;
+      });
+    });
+  }
 
   return filteredProducts;
 };
