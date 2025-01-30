@@ -12,9 +12,15 @@ export default async function Home({ searchParams }: HomeProps) {
   // Фильтрация продуктов
   const filterResult = await findPizzas(searchParams);
 
+  // Добавляем `disabled` в каждую категорию
+  const categories = filterResult.map((category) => ({
+    ...category,
+    disabled: category.products.length === 0, // true, если продуктов нет и false, если продукты есть
+  }));
+
   return (
     <>
-      <TopBar categories={filterResult.filter((result) => result.products.length > 0)} />
+      <TopBar categories={categories} />
 
       <Stories />
 

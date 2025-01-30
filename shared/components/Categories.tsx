@@ -5,20 +5,26 @@ import { cn } from '@/shared/lib/utils';
 // zustand store
 import { useCategoryStore } from '@/shared/store/category';
 // types
-import { Category } from '@prisma/client';
+import { TCategory } from './TopBar';
 
 interface CategoriesProps {
-  items: Category[];
+  items: TCategory[];
   className?: string;
 }
 
 export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
   const { activeId, setActiveId } = useCategoryStore();
 
-  const handleCategoryClick = (id: number, name: string, event: React.MouseEvent) => {
-    event.preventDefault(); // Отключаем стандартный переход по `href`
+  const handleCategoryClick = (
+    id: number,
+    name: string,
+    disabled: boolean,
+    event: React.MouseEvent
+  ) => {
+    if (disabled) return; // Не даем кликать на disabled категории
 
-    setActiveId(id); // Обновляем Zustand перед скроллом
+    event.preventDefault();
+    setActiveId(id);
 
     const section = document.getElementById(name);
     if (section) {
@@ -27,21 +33,21 @@ export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
   };
 
   return (
-    <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:flex-nowrap">
-      <nav className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}>
-        {items.map(({ id, name }) => (
-          <button
-            key={id}
-            onClick={(event) => handleCategoryClick(id, name, event)}
-            className={cn(
-              'flex items-center font-bold rounded-xl py-2 px-5 mmd:px-3 mmd:text-[0.8em]',
-              activeId === id && 'bg-white shadow-md shadow-gray-200 text-primary'
-            )}
-          >
-            {name}
-          </button>
-        ))}
-      </nav>
-    </div>
+    <nav className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}>
+      {items.map(({ id, name, disabled }) => (
+        <button
+          key={id}
+          onClick={(event) => handleCategoryClick(id, name, disabled, event)}
+          className={cn(
+            'flex items-center font-bold rounded-xl py-2 px-5 mmd:px-3 mmd:text-[0.8em]',
+            activeId === id && 'bg-white shadow-md shadow-gray-200 text-primary',
+            disabled && 'opacity-30 cursor-not-allowed' // Стили для отключенных категорий
+          )}
+          disabled={disabled} // Добавляем `disabled`
+        >
+          {name}
+        </button>
+      ))}
+    </nav>
   );
 };

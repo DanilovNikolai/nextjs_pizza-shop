@@ -5,8 +5,10 @@ import { cn } from '@/shared/lib/utils';
 // prisma
 import { Category } from '@prisma/client';
 
+export type TCategory = Category & { disabled: boolean }; // добавляем поле disabled к типизации от prisma
+
 interface TopBarProps {
-  categories: Category[];
+  categories: TCategory[];
   className?: string;
 }
 
