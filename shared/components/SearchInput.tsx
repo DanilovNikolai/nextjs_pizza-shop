@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { Api } from '@/shared/services/api-client';
 // types
 import { Product } from '@prisma/client';
+// components
+import { Backdrop } from './';
 
 interface Props {
   className?: string;
@@ -52,7 +54,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      {isFocused && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30"></div>}
+      <Backdrop isVisible={isFocused} onClick={() => setIsFocused(false)} zIndex={30} />
 
       <div
         ref={searchInputRef}
@@ -71,7 +73,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
         {products.length > 0 && (
           <div
             className={cn(
-              'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
+              'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-40',
               isFocused && 'visible opacity-100 top-12'
             )}
           >

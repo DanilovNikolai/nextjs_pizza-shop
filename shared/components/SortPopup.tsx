@@ -9,6 +9,8 @@ import { ArrowDown, ArrowDown10, ArrowDownZA, ArrowUp, ArrowUp01, ArrowUpAZ } fr
 import { Popover, PopoverContent, PopoverTrigger } from './ui';
 // custom hooks
 import { useIsMobile, useSortQueryParams } from '../hooks';
+// components
+import { Backdrop } from './';
 
 export interface SortOption {
   sortBy: 'name' | 'price' | undefined;
@@ -27,7 +29,7 @@ export const SortPopup: React.FC<{ className?: string }> = ({ className }) => {
     sortBy: 'name',
     orderBy: 'asc',
   });
-  const { searchParams, updateSortParams } = useSortQueryParams();
+  const { updateSortParams } = useSortQueryParams();
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
 
   const isMobile = useIsMobile();
@@ -39,15 +41,13 @@ export const SortPopup: React.FC<{ className?: string }> = ({ className }) => {
 
   return (
     <>
-      {sortPopupOpen && (
-        <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-50"></div>
-      )}
+      <Backdrop isVisible={sortPopupOpen} onClick={() => setSortPopupOpen(false)} zIndex={40} />
 
       <Popover>
         <PopoverTrigger asChild>
           <button
             className={cn(
-              'relative inline-flex items-center justify-center gap-1 bg-gray-50 py-3 px-5 rounded-2xl cursor-pointer mmd:text-[0.8em] z-50'
+              'relative inline-flex items-center justify-center gap-1 bg-gray-50 py-3 px-5 rounded-2xl cursor-pointer mmd:text-[0.8em] z-40'
             )}
             onClick={() => setSortPopupOpen(!sortPopupOpen)}
           >

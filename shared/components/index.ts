@@ -1,3 +1,4 @@
+export { Backdrop } from './Backdrop';
 export { Categories } from './Categories';
 export { CartButton } from './CartButton';
 export { CartDrawer } from './CartDrawer';
