@@ -60,7 +60,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             name={product.name}
             imageUrl={product.imageUrl}
             description={product.description}
-            price={product.variants[0].price}
+            price={product.variants.map((variant) => variant.price).sort((a, b) => a - b)[0]}
             ingredients={product.ingredients}
           />
         ))}
