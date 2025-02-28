@@ -44,7 +44,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
       onClose?.();
     } catch (error) {
       console.error('[REGISTER] error', error);
-      toast.error('Не удалось зарегестрироваться', {
+      toast.error('Не удалось зарегистрироваться', {
         icon: '❌',
       });
     }
