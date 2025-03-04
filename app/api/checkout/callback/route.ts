@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { redirect } from 'next/navigation';
 // types
 import { PaymentCallbackData } from '@/@types/yookassa';
 import { CartItemDTO } from '@/shared/services/dto/cart.dto';
@@ -49,6 +50,8 @@ export async function POST(req: NextRequest) {
         'Next Pizza / Ваш заказ успешно оформлен! 🎉',
         OrderSuccessEmail({ orderId: order.id, items })
       );
+
+      redirect('/?paid');
     } else {
       //TODO письмо о неуспешной оплате
     }
