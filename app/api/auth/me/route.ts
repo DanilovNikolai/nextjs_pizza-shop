@@ -7,15 +7,15 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: any, res: any) {
   try {
-    const user = await getServerSession(req, res, authOptions);
+    const session = await getServerSession(req, res, authOptions);
 
-    if (!user) {
+    if (!session) {
       return NextResponse.json({ message: 'Вы не авторизованы' }, { status: 401 });
     }
 
     const data = await prisma.user.findUnique({
       where: {
-        id: Number(user.user.id),
+        id: Number(session.user.id),
       },
       select: {
         fullName: true,

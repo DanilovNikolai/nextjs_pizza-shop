@@ -51,7 +51,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
               {[...Array(6)].map((_, index) => (
                 <div
                   key={index}
-                  className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse mmd:h-[125px] mmd:w-[100px]"
+                  className="w-[200px] h-[200px] bg-gray-200 rounded-md animate-pulse mmd:h-[125px] mmd:w-[125px]"
                 />
               ))}
             </div>
@@ -64,7 +64,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
             <img
               key={story.id}
               onClick={() => handleStoryOpen(story)}
-              className="w-[200px] h-[250px] rounded-md cursor-pointer flex-shrink-0 mmd:h-[125px] mmd:w-[100px]"
+              className="w-[200px] h-[200px] rounded-md cursor-pointer flex-shrink-0 mmd:h-[125px] mmd:w-[125px]"
               src={story.previewImageUrl}
             />
           ))}

@@ -39,7 +39,7 @@ export const ProductCard: React.FC<Props> = ({
             className
           )}
         >
-          <div className="flex justify-center p-6 bg-secondary rounded-lg mmd:p-4 mmd:w-[130px] mmd:h-[130px] mmd:mr-5 mmd:flex-shrink-0">
+          <div className="flex justify-center p-6 bg-[url(/products/product-card-bg.png)] bg-cover bg-center rounded-lg mmd:p-4 mmd:w-[130px] mmd:h-[130px] mmd:mr-5 mmd:flex-shrink-0">
             <img
               className="w-min-[215px] h-min-[215px] mmd:h-[100%] mmd:w-[100%]"
               src={imageUrl}
