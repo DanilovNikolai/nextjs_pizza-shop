@@ -49,16 +49,16 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <header className={cn('border-b', className)}>
-      <Container className="flex items-center justify-between py-8 mmd:py-3">
-        <div className='flex flex-1 mmd:flex-col mmd:mr-5'>
+    <header className={cn('border-b mmd:w-full', className)}>
+      <Container className="flex items-center justify-between py-8 mmd:py-3 mmd:px-2">
+        <div className="flex flex-1 mmd:flex-col mmd:mr-2">
           {/* Левая часть */}
           <Link href="/">
             <div className="flex items-center gap-4">
               <Image src="/logo.png" alt="logo" width={35} height={35} />
               <div>
-                <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
-                <p className="text-sm text-gray-400 leading-3">вкусней уже некуда</p>
+                <h1 className="text-2xl uppercase font-black mmd:text-[20px]">Next Pizza</h1>
+                <p className="text-sm text-gray-400 leading-3">вкусней уже некуда!</p>
               </div>
             </div>
           </Link>
