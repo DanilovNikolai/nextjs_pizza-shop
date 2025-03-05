@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 // next-auth
 import { signOut } from 'next-auth/react';
 // components
-import { Container, Title, FormInput } from './';
+import { Container, Title, FormInput } from '.';
 // shadcn ui
 import { Button } from './ui';
 // server actions
@@ -25,7 +25,7 @@ interface Props {
   className: string;
 }
 
-export const ProfileForm: React.FC<Props> = ({ data, className }) => {
+export const Profile: React.FC<Props> = ({ data, className }) => {
   const form = useForm({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -65,7 +65,7 @@ export const ProfileForm: React.FC<Props> = ({ data, className }) => {
   return (
     <Container className={cn('my-10', className)}>
       <div className="flex flex-col justify-center items-center mmd:flex-1 mmd:p-5">
-        <Title text={`Личные данные | ${data.fullName}`} size="md" className="font-bold" />
+        <Title text={`Личные данные`} size="md" className="font-bold" />
 
         <FormProvider {...form}>
           <form

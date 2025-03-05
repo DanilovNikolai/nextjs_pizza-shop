@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 // prisma
 import { prisma } from '@/prisma/prisma-client';
 // components
-import { ProfileForm } from '@/shared/components';
+import { Profile } from '@/shared/components';
 // lib
 import { getUserSession } from '@/shared/lib/getUserSession';
 
@@ -25,5 +25,5 @@ export default async function ProfilePage() {
     return redirect('/not-auth');
   }
 
-  return <ProfileForm data={user} className="mmd:w-full my-5" />;
+  return <Profile data={user} className="mmd:w-full my-5" />;
 }
