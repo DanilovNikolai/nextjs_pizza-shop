@@ -38,7 +38,5 @@ export const createPayment = async (details: Props) => {
     }
   );
 
-  console.log('Return URL:', process.env.YOOKASSA_CALLBACK_URL);
-
   return data;
 };

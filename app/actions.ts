@@ -17,6 +17,9 @@ import { getUserSession } from '@/shared/lib/getUserSession';
 // bcrypt
 import { hashSync } from 'bcrypt';
 
+const VAT = 7;
+const DELIVERY_PRICE = 250;
+
 export async function createOrder(data: CheckoutFormType) {
   try {
     const cookieStore = cookies(); // вытаскиваем куки с помощью cookies(), т.к. req.cookies в серверных экшенах недоступен (нет доступа к req, resp)
@@ -72,7 +75,8 @@ export async function createOrder(data: CheckoutFormType) {
         address: data.address,
         comment: data.comment,
         token: cartToken,
-        totalAmount: userCart.totalAmount,
+        totalAmount:
+          userCart.totalAmount + Math.round((userCart.totalAmount / 100) * VAT) + DELIVERY_PRICE,
         status: OrderStatus.PENDING,
         items: userCart.items,
         userId: Number(currentUser.id),

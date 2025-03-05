@@ -62,9 +62,9 @@ export const Orders: React.FC<Props> = ({ className }) => {
               >
                 {(order.status === 'CANCELLED' && 'ОТМЕНЁН') ||
                   (order.status === 'PENDING' && 'ОЖИДАНИЕ ОПЛАТЫ') ||
-                  (order.status === 'SUCCEEDED' && 'В РАБОТЕ')}
+                  (order.status === 'SUCCEEDED' && 'ОПЛАЧЕН')}
               </TableCell>
-              <TableCell>{order.totalAmount}</TableCell>
+              <TableCell className="text-nowrap">{order.totalAmount} ₽</TableCell>
               <TableCell>{order.address}</TableCell>
               <TableCell>{format(order.createdAt, 'dd.MM.yy')}</TableCell>
               <TableCell className="text-right">{format(order.createdAt, 'hh:mm')}</TableCell>

@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const CheckoutInvoice: React.FC<Props> = ({ loading, totalAmount }) => {
-  const vatPrice = (totalAmount * VAT) / 100;
+  const vatPrice = Math.round((totalAmount * VAT) / 100);
 
   return (
     <WhiteBlock className="p-6 sticky top-4 mmd:relative">
@@ -24,7 +24,7 @@ export const CheckoutInvoice: React.FC<Props> = ({ loading, totalAmount }) => {
           <Skeleton className="w-[50%] h-11" />
         ) : (
           <span className="h-11 text-[34px] font-extrabold">
-            {(totalAmount + vatPrice + DELIVERY_PRICE).toFixed(2)} ₽
+            {totalAmount + vatPrice + DELIVERY_PRICE} ₽
           </span>
         )}
       </div>
