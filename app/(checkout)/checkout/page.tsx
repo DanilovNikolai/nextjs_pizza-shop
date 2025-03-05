@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+// next
+import { redirect } from 'next/navigation';
 // react-hook-form
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 // zod
@@ -27,6 +29,7 @@ import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 // services
 import { Api } from '@/shared/services/api-client';
+// cn
 import { cn } from '@/shared/lib/utils';
 
 export default function CheckoutPage() {
@@ -88,9 +91,16 @@ export default function CheckoutPage() {
     updateItemQuantity(id, newQuantity);
   };
 
+  if (items.length < 1) {
+    redirect('./');
+  }
+
   return (
     <Container className="mt-10 mmd:mt-5 mmd:w-full mmd:flex-col">
-      <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px] mmd:text-[28px] mmd:mb-4" />
+      <Title
+        text="Оформление заказа"
+        className="font-extrabold mb-8 text-[36px] mmd:text-[28px] mmd:mb-4"
+      />
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
