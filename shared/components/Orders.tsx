@@ -19,12 +19,15 @@ import {
 import { Api } from '../services/api-client';
 import { useEffect, useState } from 'react';
 // lib
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 
 interface Props {
   data: User;
   className?: string;
 }
+
+// Часовой пояс для даты оформления заказа
+const timeZone = 'Europe/Moscow';
 
 export const Orders: React.FC<Props> = ({ className }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -66,8 +69,10 @@ export const Orders: React.FC<Props> = ({ className }) => {
               </TableCell>
               <TableCell className="text-nowrap">{order.totalAmount} ₽</TableCell>
               <TableCell>{order.address}</TableCell>
-              <TableCell>{format(order.createdAt, 'dd.MM.yy')}</TableCell>
-              <TableCell className="text-right">{format(order.createdAt, 'hh:mm')}</TableCell>
+              <TableCell>{formatInTimeZone(order.createdAt, timeZone, 'dd.MM.yy')}</TableCell>
+              <TableCell className="text-right">
+                {formatInTimeZone(order.createdAt, timeZone, 'HH:mm')}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
