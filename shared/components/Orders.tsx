@@ -56,7 +56,17 @@ export const Orders: React.FC<Props> = ({ className }) => {
             {orders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell className="font-medium">{order.id}</TableCell>
-                <TableCell>{order.status}</TableCell>
+                <TableCell
+                  className={cn({
+                    'text-red-600': order.status === 'CANCELLED',
+                    'text-yellow-500': order.status === 'PENDING',
+                    'text-green-600': order.status === 'SUCCEEDED',
+                  })}
+                >
+                  {(order.status === 'CANCELLED' && 'ОТМЕНЁН') ||
+                    (order.status === 'PENDING' && 'ОЖИДАНИЕ ОПЛАТЫ') ||
+                    (order.status === 'SUCCEEDED' && 'В РАБОТЕ')}
+                </TableCell>
                 <TableCell>{order.address}</TableCell>
                 <TableCell>{order.phone}</TableCell>
                 <TableCell>Нет данных</TableCell>
