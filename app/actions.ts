@@ -56,6 +56,13 @@ export async function createOrder(data: CheckoutFormType) {
       throw new Error('Cart is empty');
     }
 
+    // Получаем текущего пользователя
+    const currentUser = await getUserSession();
+
+    if (!currentUser) {
+      throw new Error('User not found');
+    }
+
     // Создаем заказ в БД
     const order = await prisma.order.create({
       data: {
@@ -68,6 +75,7 @@ export async function createOrder(data: CheckoutFormType) {
         totalAmount: userCart.totalAmount,
         status: OrderStatus.PENDING,
         items: userCart.items,
+        userId: Number(currentUser.id),
       },
     });
 
