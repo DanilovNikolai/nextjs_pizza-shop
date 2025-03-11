@@ -79,7 +79,10 @@ export const Stories: React.FC<Props> = ({ className }) => {
               className="relative"
               style={{
                 width: window.innerWidth <= 768 ? '100vw' : '520px',
-                height: window.innerWidth <= 768 ? '100vh' : '800px',
+                height:
+                  window.innerWidth <= 768
+                    ? `${window.visualViewport?.height || window.innerHeight}px`
+                    : '800px',
               }}
             >
               <button className="absolute -right-10 -top-5 z-50" onClick={() => setOpen(false)}>
@@ -91,7 +94,11 @@ export const Stories: React.FC<Props> = ({ className }) => {
                 stories={selectedStory?.items.map((item) => ({ url: item.sourceUrl })) || []}
                 defaultInterval={3000}
                 width={window.innerWidth <= 768 ? '100vw' : 520}
-                height={window.innerWidth <= 768 ? '100vh' : 800}
+                height={
+                  window.innerWidth <= 768
+                    ? `${window.visualViewport?.height || window.innerHeight}px`
+                    : 800
+                }
               />
             </div>
           </div>
