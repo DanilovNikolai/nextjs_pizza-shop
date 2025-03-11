@@ -71,18 +71,27 @@ export const Stories: React.FC<Props> = ({ className }) => {
         </div>
 
         {open && (
-          <div className="absolute left-0 top-0 w-full h-full bg-black/80 flex items-center justify-center z-30">
-            <div className="relative w-[520px]">
-              <button className="absolute -right-10 -top-5 z-30" onClick={() => setOpen(false)}>
-                <X className="absolute top-0 right-0 w-8 h-8 text-white/50" />
+          <div
+            className="fixed left-0 top-0 w-full h-full bg-black/80 flex items-center justify-center z-30"
+            onClick={() => setOpen(false)}
+          >
+            <div
+              className="relative"
+              style={{
+                width: window.innerWidth <= 768 ? '100vw' : '520px',
+                height: window.innerWidth <= 768 ? '100vh' : '800px',
+              }}
+            >
+              <button className="absolute -right-10 -top-5 z-50" onClick={() => setOpen(false)}>
+                <X className="absolute top-0 right-0 w-8 h-8 text-white/70" />
               </button>
 
               <ReactStories
                 onAllStoriesEnd={() => setOpen(false)}
                 stories={selectedStory?.items.map((item) => ({ url: item.sourceUrl })) || []}
                 defaultInterval={3000}
-                width={520}
-                height={800}
+                width={window.innerWidth <= 768 ? '100vw' : 520}
+                height={window.innerWidth <= 768 ? '100vh' : 800}
               />
             </div>
           </div>
