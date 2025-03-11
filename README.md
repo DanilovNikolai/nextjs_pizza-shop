@@ -18,10 +18,10 @@ Just below is navigation by product categories and sorting by name and price in 
 
 ### **main**
 
-![Screenshot of the main_page](/assets/screenshots/main_page.png)
+![Screenshot of the main_page](/assets/screenshots/main_page.jpg)
 In the main part of the page on the left there is filtering by product characteristics, price, and ingredients. 
 There is a list of products to the right.
-All product data is stored in the data base provided by **_[a link](vercel.com)_**.
+All product data is stored in the data base provided by **_[vercel.com]_**.
 The search, filtering and sorting is performed via the **_Prisma ORM_** on the server side.
 All the selected parameters are displayed in the url query string via **_qs_** lib and **_useSearchParams_** hook.
 
