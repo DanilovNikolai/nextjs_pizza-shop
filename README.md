@@ -3,11 +3,11 @@
 ## **App description:**
 
 This online pizza shop is full-stack web application based on **_NextJS_** with **_TypeScript_** + **_Zustand_** + **_PostgreSQL_** via **_Prisma ORM_**.
-The **_shadcn_** library was used for some ui components (checkbox, drawer, dialog, popover, slider, select, sheet and etc.)
-Element styles were mostly written using **_tailwind_** lib.
-**_zustand_** was used as the state manager.
-The service **_resend.com_** api was used for sending emails when registering a new user, placing an order and making a successful payment.
-The application has adaptations for mobile phones and desktop screens.
+*  The **_shadcn_** library was used for some ui components (checkbox, drawer, dialog, popover, slider, select, sheet and etc.)
+*  Element styles were mostly written using **_tailwind_** lib.
+*  **_zustand_** was used as the state manager.
+*  The service **_resend.com_** api was used for sending emails when registering a new user, placing an order and making a successful payment.
+*  The application has adaptations for mobile phones and desktop screens.
 
 ### **header**
 
