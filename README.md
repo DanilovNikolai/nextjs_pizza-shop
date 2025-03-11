@@ -33,7 +33,7 @@ Each product has its own page with its own url endpoint.
 
 ### **cart and payment**
 
-![Screenshot of the cart](/assets/screenshots/cart_drawer.png)
+![Screenshot of the cart](/assets/screenshots/cart_drawer.png) <br />
 The selected items are added to the shopping cart drawer component, where you can also decrease / increase the number of specific pizzas, remove it from the cart, and completely empty the cart.
 ![Screenshot of the checkout_page](/assets/screenshots/checkout.png)
 The order checkout is placed on a separate page where you need to fill in the delivery information before payment.
