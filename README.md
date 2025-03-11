@@ -27,7 +27,7 @@ All the selected parameters are displayed in the url query string via **_qs_** l
 
 ### **product card**
 
-![Screenshot of the product_card](/assets/screenshots/product_card.png)
+![Screenshot of the product_card](/assets/screenshots/product_card.png) <br />
 For each product you can find its description and for each pizza you can select parameters - the thickness of the dough, its diameter and ingredients.
 Each product has its own page with its own url endpoint.
 
@@ -52,7 +52,7 @@ All data is stored in data base.
 
 ### **login and sign_up**
 
-![Screenshot of the login_modal](/assets/screenshots/sign_in.png) ![Screenshot of the registration modal](/src/assets/screenshots/sign_up.png)
+![Screenshot of the login_modal](/assets/screenshots/sign_in.png) ![Screenshot of the registration modal](/assets/screenshots/sign_up.png)
 Authorization and registration works using **_NextAuth.js_** lib. These input fields are checked for validity by **_zod_** lib.
 There is also authorization via **_github_** and **_google_**.
 User registration provided by **_Nextjs server action_**.
