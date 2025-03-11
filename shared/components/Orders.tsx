@@ -33,9 +33,10 @@ export const Orders: React.FC<Props> = ({ className }) => {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    Api.orders.getAll().then((data) => {
-      setOrders(data);
-    });
+    Api.orders
+      .getAll()
+      .then((data) => data.sort((a, b) => a.id - b.id))
+      .then((data) => setOrders(data));
   }, []);
 
   return (
@@ -63,9 +64,11 @@ export const Orders: React.FC<Props> = ({ className }) => {
                   'text-green-600': order.status === 'SUCCEEDED',
                 })}
               >
-                {(order.status === 'CANCELLED' && 'ОТМЕНЁН') ||
-                  (order.status === 'PENDING' && 'ОЖИДАНИЕ ОПЛАТЫ') ||
-                  (order.status === 'SUCCEEDED' && 'ОПЛАЧЕН')}
+                <b>
+                  {(order.status === 'CANCELLED' && 'ОТМЕНЁН') ||
+                    (order.status === 'PENDING' && 'ОЖИДАНИЕ ОПЛАТЫ') ||
+                    (order.status === 'SUCCEEDED' && 'ОПЛАЧЕН')}
+                </b>
               </TableCell>
               <TableCell className="text-nowrap">{order.totalAmount} ₽</TableCell>
               <TableCell>{order.address}</TableCell>
